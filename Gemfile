@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Rubocop enforces ruby style guidelines
+gem 'rubocop', require: false
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
