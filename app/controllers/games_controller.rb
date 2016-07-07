@@ -1,7 +1,15 @@
 class GamesController < ApplicationController
-  def new
+  def show
+    @game = Game.find(params[:id])
   end
 
-  def show
+  def new
+    @game = Game.new
+  end
+
+  private
+
+  def place_params
+    params.require(:game).permit(:name)
   end
 end
