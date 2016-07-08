@@ -5,6 +5,9 @@ gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
 gem 'sass-rails'
 
+# Build rails forms
+gem 'simple_form'
+
 # Rubocop enforces ruby style guidelines
 gem 'rubocop', require: false
 
