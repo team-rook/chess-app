@@ -51,6 +51,12 @@ end
 
 gem 'devise', '>= 3.2.4'
 
+gem 'omniauth'
+
+gem 'omniauth-facebook'
+
+gem 'figaro'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
