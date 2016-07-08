@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
+
   has_many :games    
 
   def self.from_omniauth(auth)
@@ -22,4 +23,7 @@ def self.new_with_session(params, session)
       end
     end
   end   
+
+  has_many :games
+  has_many :pieces     
 end
