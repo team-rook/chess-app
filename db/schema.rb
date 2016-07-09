@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160708172105) do
-=======
-ActiveRecord::Schema.define(version: 20160708145210) do
->>>>>>> master
+ActiveRecord::Schema.define(version: 20160709010138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +27,12 @@ ActiveRecord::Schema.define(version: 20160708145210) do
 
   create_table "pieces", force: true do |t|
     t.string   "type"
-    t.integer  "current_position"
     t.integer  "user_id"
     t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "x_position"
+    t.integer  "y_position"
   end
 
   create_table "users", force: true do |t|
