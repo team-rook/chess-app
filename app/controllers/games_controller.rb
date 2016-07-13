@@ -2,13 +2,15 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
   end
-  
+
   def show
     @game = Game.find(params[:id])
   end
 
   def create
 		@game = Game.create(game_params)
+    @game.white_user = current_user
+    @game.save
     redirect_to game_path(@game)
 	end
 
