@@ -5,8 +5,6 @@ class Game < ActiveRecord::Base
 
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
-  def index
 
-  end
 
 end
