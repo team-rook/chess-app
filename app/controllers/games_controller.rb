@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+before_action :authenticate_user!, only: [:new, :create]
+
   def new
     @game = Game.new
   end
@@ -8,11 +10,11 @@ class GamesController < ApplicationController
   end
 
   def create
-		@game = Game.create(game_params)
+    @game = Game.create(game_params)
     @game.white_user = current_user
     @game.save
     redirect_to game_path(@game)
-	end
+  end
 
   private
 
