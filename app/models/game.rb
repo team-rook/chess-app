@@ -5,40 +5,38 @@ class Game < ActiveRecord::Base
   after_create :initialize_board!
 
   def initialize_board!
-    # black pieces
-    Rook.create(user: black_user, x_position: 0, y_position: 0)
-    Rook.create(user: black_user, x_position: 7, y_position: 0)
-
-    Knight.create(user: black_user, x_position: 1, y_position: 0)
-    Knight.create(user: black_user, x_position: 6, y_position: 0)
-
-    Bishop.create(user: black_user, x_position: 2, y_position: 0)
-    Bishop.create(user: black_user, x_position: 5, y_position: 0)
-
-    Queen.create(user: black_user, x_position: 3, y_position: 0)
-
-    King.create(user: black_user, x_position: 4, y_position: 0)
-
     (0..7).each do |i|
-      Pawn.create(user: black_user, x_position: i, y_position: 1)
+      Pawn.create(color: black, x_position: i, y_position: 1)
     end
 
-    # white pieces
-    Rook.create(user: white_user, x_position: 0, y_position: 7)
-    Rook.create(user: white_user, x_position: 7, y_position: 7)
+    Rook.create(color: black, x_position: 0, y_position: 0)
+    Rook.create(color: black, x_position: 7, y_position: 0)
 
-    Knight.create(user: white_user, x_position: 1, y_position: 7)
-    Knight.create(user: white_user, x_position: 6, y_position: 7)
+    Knight.create(color: black, x_position: 1, y_position: 0)
+    Knight.create(color: black, x_position: 6, y_position: 0)
 
-    Bishop.create(user: white_user, x_position: 2, y_position: 7)
-    Bishop.create(user: white_user, x_position: 5, y_position: 7)
+    Bishop.create(color: black, x_position: 2, y_position: 0)
+    Bishop.create(color: black, x_position: 5, y_position: 0)
 
-    Queen.create(user: white_user, x_position: 3, y_position: 7)
+    Queen.create(color: black, x_position: 3, y_position: 0)
 
-    King.create(user: white_user, x_position: 4, y_position: 7)
+    King.create(color: black, x_position: 4, y_position: 0)
 
     (0..7).each do |i|
-      Pawn.create(user: white_user, x_position: i, y_position: 7)
+      Pawn.create(color: white, x_position: i, y_position: 7)
     end
+
+    Rook.create(color: white, x_position: 0, y_position: 7)
+    Rook.create(color: white, x_position: 7, y_position: 7)
+
+    Knight.create(color: white, x_position: 1, y_position: 7)
+    Knight.create(color: white, x_position: 6, y_position: 7)
+
+    Bishop.create(color: white, x_position: 2, y_position: 7)
+    Bishop.create(color: white, x_position: 5, y_position: 7)
+
+    Queen.create(color: white, x_position: 3, y_position: 7)
+
+    King.create(color: white, x_position: 4, y_position: 7)
   end
 end
