@@ -1,10 +1,6 @@
 class GamesController < ApplicationController
 before_action :authenticate_user!, only: [:new, :create]
 
-  def index
-    @games = Game.where(black_user_id: [nil])
-  end
-
   def new
     @game = Game.new
   end
@@ -18,7 +14,7 @@ before_action :authenticate_user!, only: [:new, :create]
     @game.white_user = current_user
     @game.save
     redirect_to game_path(@game)
-	end
+  end
 
   private
 
