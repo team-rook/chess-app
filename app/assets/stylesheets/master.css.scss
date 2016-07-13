@@ -1,6 +1,8 @@
 h1, h2, h3, h4, h5, h6, .navbar {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
+    color: white;
+
 }
 
 body {
@@ -56,4 +58,19 @@ table {
  tr:nth-child(odd) td:nth-child(even), 
  tr:nth-child(even) td:nth-child(odd) {
   background: brown;
+}
+
+.frosty {
+    background:rgba(0,0,0, 0.5);
+    color:white;
+    padding: 20px;
+}
+
+h4 {
+  margin-bottom: 2px;
+}
+
+.join_button {
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
