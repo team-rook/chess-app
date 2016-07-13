@@ -19,7 +19,6 @@ class Game < ActiveRecord::Base
     Bishop.create(x_position: 5, y_position: 0)
 
     Queen.create(x_position: 3, y_position: 0)
-
     King.create(x_position: 4, y_position: 0)
 
     (0..7).each do |i|
@@ -36,7 +35,6 @@ class Game < ActiveRecord::Base
     Bishop.create(x_position: 5, y_position: 7)
 
     Queen.create(x_position: 3, y_position: 7)
-
     King.create(x_position: 4, y_position: 7)
   end
 end
