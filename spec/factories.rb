@@ -16,63 +16,27 @@ FactoryGirl.define do
     association :game
   end
 
-  factory :black_pawn, :class => Pawn, :parent => :piece do
-    type "Pawn"
-    user :black_user
+  factory :pawn do
+
   end
 
-  factory :black_rook, :class => Rook, :parent => :piece do
-    type "Rook"
-    user :black_user
+  factory :rook do
+    
   end
 
-  factory :black_knight, :class => Knight, :parent => :piece do
-    type "Knight"
-    user :black_user
+  factory :knight do
+
   end
 
-  factory :black_bishop, :class => Bishop, :parent => :piece do
-    type "Bishop"
-    user :black_user
+  factory :bishop do
+
   end
 
-  factory :black_king, :class => King, :parent => :piece do
-    type "King"
-    user :black_user
+  factory :king do
+
   end
 
-  factory :black_queen, :class => Queen, :parent => :piece do
-    type "Queen"
-    user :black_user
-  end
+  factory :queen do
 
-  factory :white_pawn, :class => Pawn, :parent => :piece do
-    type "Pawn"
-    user :white_user
-  end
-
-  factory :white_rook, :class => Rook, :parent => :piece do
-    type "Rook"
-    user :white_user
-  end
-
-  factory :white_knight, :class => Knight, :parent => :piece do
-    type "Knight"
-    user :white_user
-  end
-
-  factory :white_bishop, :class => Bishop, :parent => :piece do
-    type "Bishop"
-    user :white_user
-  end
-
-  factory :white_king, :class => King, :parent => :piece do
-    type "King"
-    user :white_user
-  end
-
-  factory :white_queen, :class => Queen, :parent => :piece do
-    type "Queen"
-    user :white_user
   end
 end
