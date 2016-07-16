@@ -5,7 +5,6 @@ class Game < ActiveRecord::Base
 
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
-
   def initialize_board!
     (0..7).each do |i|
       Pawn.create(x_position: i, y_position: 1, game_id: id, user_id: black_user_id)
