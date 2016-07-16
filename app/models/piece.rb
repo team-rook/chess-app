@@ -15,6 +15,3 @@ class Piece < ActiveRecord::Base
     %w(Pawn Rook Bishop Knight Queen King)
   end
 end
-
-
-
