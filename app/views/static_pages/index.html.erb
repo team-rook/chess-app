@@ -16,7 +16,7 @@
               <h4>White Player:  <%= game.white_user.email %></h4>
             </div>
             <div class="join_button col-xs-12 text-center col-md-1 col-md-offset-1">
-              <%= link_to 'Join Game!', game_path(game), class: 'btn btn-success btn-sm' %>
+              <%= link_to 'Join game', join_game_path(game.id), { action: :join, method: :patch }%>
             </div>
           <% end %>
       </div>
