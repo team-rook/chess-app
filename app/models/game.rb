@@ -3,7 +3,6 @@ class Game < ActiveRecord::Base
   belongs_to :black_user, :class_name => 'User'
   has_many :pieces
   scope :needing_second_player, -> { where(black_user_id: nil) }
-  after_create :initialize_board!
 
   def add_black_player(user)
     update(black_user: user)
