@@ -15,5 +15,11 @@ class Piece < ActiveRecord::Base
     %w(Pawn Rook Bishop Knight Queen King)
   end
 
-  
+  def x_diff(x)
+    (x - x_position).abs
+  end
+
+  def y_diff(y)
+    (y - y_position).abs
+  end
 end
