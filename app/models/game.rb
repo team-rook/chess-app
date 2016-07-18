@@ -45,11 +45,13 @@ class Game < ActiveRecord::Base
     King.create(x_position: 4, y_position: 7, game_id: id, user_id: white_user_id)
   end
 
+  # return piece object occupying x,y square
   def find_piece(x, y)
-    pieces.where("x_position = ? AND y_position = ?", x, y).first
+    pieces.where(x_position: x, y_position: y).first
   end
 
+  # returns true if space is occupied by a piece
   def square_occupied?(x, y)
-    pieces.where("x_position = ? AND y_position = ?", x, y).any?
+    pieces.where(x_position: x, y_position: y).any?
   end
 end
