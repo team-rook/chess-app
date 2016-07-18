@@ -14,4 +14,14 @@ class Piece < ActiveRecord::Base
   def self.types
     %w(Pawn Rook Bishop Knight Queen King)
   end
+
+  # returns absolute value of destination x - current x position
+  def x_diff(x)
+    (x - x_position).abs
+  end
+
+  # returns absolute value of destination y - current y position
+  def y_diff(y)
+    (y - y_position).abs
+  end
 end

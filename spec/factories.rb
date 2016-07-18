@@ -21,7 +21,7 @@ FactoryGirl.define do
   end
 
   factory :rook do
-    
+
   end
 
   factory :knight do
