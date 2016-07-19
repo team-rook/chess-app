@@ -61,7 +61,7 @@ class Piece < ActiveRecord::Base
     [y_position, y].min + 1
   end
 
-  # returns y value of first square to check along the path
+  # returns y value of last square to check along the path
   def y_end(y)
     [y_position, y].max
   end
