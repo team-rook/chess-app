@@ -62,31 +62,157 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe 'x_min' do
-    it 'should compare current x and destination x and return the smaller value' do
-      rook = Rook.create(x_position: 0, y_position: 0)
-      expect(rook.x_min(7)).to eq 0
+  describe 'horizontal_blocked?' do
+    it 'should return true if the horizontal path east is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
+      queen = Queen.create(x_position: 3, y_position: 0, game_id: game.id)
+      expect(rook.horizontal_blocked?(4,0)).to eq true
+    end
+
+    it 'should return false if the horizontal path east is clear' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 2, game_id: game.id)
+      expect(rook.horizontal_blocked?(3,2)).to eq false
+    end
+
+    it 'should return true if the horizontal path west is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id)
+      queen = Queen.create(x_position: 3, y_position: 0, game_id: game.id)
+      expect(rook.horizontal_blocked?(2,0)).to eq true
+    end
+
+    it 'should return false if the horizontal path west is clear' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 2, y_position: 2, game_id: game.id)
+      expect(rook.horizontal_blocked?(0,2)).to eq false
+    end
+
+    it 'should return false even if destination square is occupied because checking path only' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 3, game_id: game.id)
+      pawn = Pawn.create(x_position: 3, y_position: 3, game_id: game.id)
+      expect(rook.vertical_blocked?(3,3)).to eq false
     end
   end
 
-  describe 'x_max' do
-    it 'should compare current x and destination x and return the larger value' do
-      rook = Rook.create(x_position: 0, y_position: 0)
-      expect(rook.x_max(7)).to eq 7
+  describe 'vertical_blocked?' do
+    it 'should return true if the vertical path north is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 3, y_position: 3, game_id: game.id)
+      pawn = Pawn.create(x_position: 3, y_position: 1, game_id: game.id)
+      expect(rook.vertical_blocked?(3,0)).to eq true
+    end
+
+    it 'should return false if the vertical path north is clear' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 3, y_position: 5, game_id: game.id)
+      expect(rook.vertical_blocked?(3,2)).to eq false
+    end
+
+    it 'should return true if the vertical path south is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position:0, game_id: game.id)
+      pawn = Pawn.create(x_position: 0, y_position: 1, game_id: game.id)
+      expect(rook.vertical_blocked?(0,3)).to eq true
+    end
+
+    it 'should return false if the vertical path south is clear' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 3, y_position: 3, game_id: game.id)
+      expect(rook.vertical_blocked?(3,5)).to eq false
+    end
+
+    it 'should return false even if destination square is occupied because checking path only' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 3, y_position: 3, game_id: game.id)
+      pawn = Pawn.create(x_position: 3, y_position: 6, game_id: game.id)
+      expect(rook.vertical_blocked?(3,6)).to eq false
     end
   end
 
-  describe 'y_min' do
-    it 'should compare current y and destination y and return the smaller value' do
-      rook = Rook.create(x_position: 0, y_position: 0)
-      expect(rook.y_min(7)).to eq 0
+  describe 'diagonal_blocked?' do
+    it 'should return true if the diagonal path northeast is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 5, y_position: 7, game_id: game.id)
+      pawn = Pawn.create(x_position: 6, y_position: 6, game_id: game.id)
+      expect(bishop.diagonal_blocked?(7,5)).to eq true
+    end
+
+    it 'should return true if the diagonal path northwest is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 5, y_position: 7, game_id: game.id)
+      pawn = Pawn.create(x_position: 4, y_position: 6, game_id: game.id)
+      expect(bishop.diagonal_blocked?(3,5)).to eq true
+    end
+
+    it 'should return true if the diagonal path southwest is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 2, y_position: 0, game_id: game.id)
+      pawn = Pawn.create(x_position: 1, y_position: 1, game_id: game.id)
+      expect(bishop.diagonal_blocked?(0,2)).to eq true
+    end
+
+    it 'should return true if the diagonal path southeast is blocked' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 2, y_position: 0, game_id: game.id)
+      pawn = Pawn.create(x_position: 3, y_position: 1, game_id: game.id)
+      expect(bishop.diagonal_blocked?(4,2)).to eq true
+    end
+
+    it 'should return false if the diagonal path is clear' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 2, y_position: 2, game_id: game.id)
+      expect(bishop.diagonal_blocked?(5,5)).to eq false
+    end
+
+    it 'should return false even if destination square is occupied because checking path only' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 2, y_position: 0, game_id: game.id)
+      pawn = Pawn.create(x_position: 3, y_position: 1, game_id: game.id)
+      expect(bishop.diagonal_blocked?(3,1)).to eq false
     end
   end
 
-  describe 'y_max' do
-    it 'should compare current y and destination y and return the larger value' do
-      rook = Rook.create(x_position: 0, y_position: 0)
-      expect(rook.y_max(7)).to eq 7
+  describe 'path_blocked?' do
+    it 'should return true if the path is blocked for horizontal move' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
+      queen = Queen.create(x_position: 3, y_position: 0, game_id: game.id)
+      expect(rook.path_blocked?(4,0)).to eq true
+    end
+
+    it 'should return false if the path is clear for horizontal move' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 2, game_id: game.id)
+      expect(rook.horizontal_blocked?(3,2)).to eq false
+    end
+
+    it 'should return true if the path is blocked for vertical move' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 3, y_position: 3, game_id: game.id)
+      pawn = Pawn.create(x_position: 3, y_position: 1, game_id: game.id)
+      expect(rook.path_blocked?(3,0)).to eq true
+    end
+
+    it 'should return false if the path is clear for horizontal move' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 3, y_position: 3, game_id: game.id)
+      expect(rook.vertical_blocked?(3,5)).to eq false
+    end
+
+    it 'should return true if the path is blocked for diagonal move' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 5, y_position: 7, game_id: game.id)
+      pawn = Pawn.create(x_position: 6, y_position: 6, game_id: game.id)
+      expect(bishop.path_blocked?(7,5)).to eq true
+    end
+
+    it 'should return false if the path is clear for diagonal move' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      bishop = Bishop.create(x_position: 2, y_position: 2, game_id: game.id)
+      expect(bishop.path_blocked?(5,5)).to eq false
     end
   end
 end

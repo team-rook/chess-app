@@ -46,31 +46,56 @@ class Piece < ActiveRecord::Base
     return (x_diff) == (y_diff)
   end
 
-  # compares current x and destination x and returns the smaller value
-  def x_min(x)
-    [x_position, x].min
+  # returns x value of first square to check along the path
+  def x_start(x)
+    [x_position, x].min + 1
   end
 
-  # compares current x and destination x and returns the larger value
-  def x_max(x)
+  # returns x value of last square to check along the path
+  def x_end(x)
     [x_position, x].max
   end
 
-  # compares current y and destination y and returns the smaller value
-  def y_min(y)
-    [y_position, y].min
+  # returns y value of first square to check along the path
+  def y_start(y)
+    [y_position, y].min + 1
   end
 
-  # compares current y and destination y and returns the larger value
-  def y_max(y)
+  # returns y value of first square to check along the path
+  def y_end(y)
     [y_position, y].max
   end
 
-  # returns array of coordinates along the path of move
-  def path_clear?
-    return vertical_clear? if vertical?
-    return horizontal_clear? if horizontal?
-    return diagonal_clear? if diagonal?
-    fail ArgumentError, 'Invalid path'
+  # returns true if the horizontal path is blocked
+  def horizontal_blocked?(x,y)
+    (x_start(x)...x_end(x)).each do |x|
+      return true if game.square_occupied?(x, y)
+    end
+    return false
+  end
+
+  # returns true if the vertical path is blocked
+  def vertical_blocked?(x,y)
+    (y_start(y)...y_end(y)).each do |y|
+      return true if game.square_occupied?(x, y)
+    end
+    return false
+  end
+
+  # return true if diagonal path is blocked
+  def diagonal_blocked?(x,y)
+    (x_start(x)...x_end(x)).each do |x|
+      (y_start(y)...y_end(y)).each do |y|
+        return true if game.square_occupied?(x, y)
+      end
+    end
+    return false
+  end
+
+  # returns true if the path is blocked
+  def path_blocked?(x,y)
+    return horizontal_blocked?(x,y) if horizontal?(x,y)
+    return vertical_blocked?(x,y) if vertical?(x,y)
+    return diagonal_blocked?(x,y) if diagonal?(x,y)
   end
 end
