@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
 
   def add_black_player(user)
     update(black_user: user)
+    initialize_board!
   end
 
   def initialize_board!
