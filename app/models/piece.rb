@@ -103,7 +103,7 @@ class Piece < ActiveRecord::Base
     self.captured = true
   end
 
-  # def captured?
-  #   self.captured == true
-  # end
+  def captured?
+    self.captured == true
+  end
 end
