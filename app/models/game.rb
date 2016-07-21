@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_many :pieces
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
-  after_create :initialize_board!
+  
 
   def add_black_player(user)
     update(black_user: user)
@@ -56,6 +56,12 @@ class Game < ActiveRecord::Base
     pieces.where(x_position: x, y_position: y).any?
   end
 
-  
+  def piece_data
+  data = Hash.new { |hash, key| hash[key] = {} }
+  pieces.each do |piece|
+    data[piece.x_position][piece.y_position]=piece
+  end
+  data
+end
 
 end
