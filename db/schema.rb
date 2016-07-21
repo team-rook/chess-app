@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719042908) do
+ActiveRecord::Schema.define(version: 20160721211806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20160719042908) do
     t.integer  "x_position"
     t.integer  "y_position"
     t.boolean  "captured"
-    t.string   "piece_unicode"
   end
 
   create_table "users", force: true do |t|

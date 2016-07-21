@@ -7,11 +7,11 @@
    <% (0..7).each do |column| %>
     <td data-x-position="<%=column%>" data-y-position="<%=row%>">
     
-    <% piece = @game.piece_data[row][column] %>
+    <% piece = @game.piece_data[column][row] %>
 
     <% if piece.present? %>
-      %>
-    <%= @game.piece_data[row][column].unicode_symbol.html_safe%>
+    
+    <%= piece.unicode_symbol.html_safe%>
     </td>
   
     <% end %>
