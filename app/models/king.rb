@@ -5,4 +5,13 @@ class King < Piece
     y_diff = y_diff(y)
     return (x_diff <= 1) && (y_diff <= 1)
   end
+
+   def unicode_symbol
+      if white?
+        return "&#9812;"
+      else 
+      return "&#9818;"
+    end
+  end
+
 end
