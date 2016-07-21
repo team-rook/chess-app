@@ -6,7 +6,7 @@ class Piece < ActiveRecord::Base
   
 
   def white?
-     self.user == self.game.white_user
+    self.user == self.game.white_user
   end
 
   def black?
@@ -99,5 +99,13 @@ class Piece < ActiveRecord::Base
     return horizontal_blocked?(x,y) if horizontal?(x,y)
     return vertical_blocked?(x,y) if vertical?(x,y)
     return diagonal_blocked?(x,y) if diagonal?(x,y)
+  end
+
+  def captured!
+    self.captured = true
+  end
+
+  def captured?
+    self.captured == true
   end
 end
