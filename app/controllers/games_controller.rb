@@ -7,7 +7,7 @@ before_action :authenticate_user!, only: [:new, :join, :create]
 
   def show
     @game = Game.find(params[:id])
-    @pieces = @game.pieces
+    
   end
 
   def create
