@@ -1,11 +1,23 @@
  <div class="chessboard">
    <table>
-
+   
    <% (0..7).each do |row| %>
     <tr>
+    
    <% (0..7).each do |column| %>
     <td data-x-position="<%=column%>" data-y-position="<%=row%>">
+    
+    <% piece = @game.piece_data[column][row] %>
+
+    <% if piece.present? %>
+    
+    <%= piece.unicode_symbol.html_safe%>
+    </td>
+  
     <% end %>
+ 
+    <% end %>
+    </tr>
   <% end %>
 
    

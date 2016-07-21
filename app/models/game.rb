@@ -4,8 +4,11 @@ class Game < ActiveRecord::Base
   has_many :pieces
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
+  
+
   def add_black_player(user)
     update(black_user: user)
+    initialize_board!
   end
 
   def initialize_board!
@@ -28,7 +31,7 @@ class Game < ActiveRecord::Base
 
     # white pieces
     (0..7).each do |i|
-      Pawn.create(x_position: i, y_position: 7, game_id: id, user_id: white_user_id)
+      Pawn.create(x_position: i, y_position: 6, game_id: id, user_id: white_user_id)
     end
 
     Rook.create(x_position: 0, y_position: 7, game_id: id, user_id: white_user_id)
@@ -53,4 +56,13 @@ class Game < ActiveRecord::Base
   def square_occupied?(x, y)
     pieces.where(x_position: x, y_position: y).any?
   end
+
+  def piece_data
+  data = Hash.new { |hash, key| hash[key] = {} }
+  pieces.each do |piece|
+    data[piece.x_position][piece.y_position]=piece
+  end
+  data
+end
+
 end
