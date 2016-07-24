@@ -2,7 +2,8 @@ class Piece < ActiveRecord::Base
   self.inheritance_column = :type
   belongs_to :user
   belongs_to :game
-  scope :active_pieces, -> { where(captured: nil) }
+
+  scope :active, -> { where(captured: nil) }
 
   def white?
     self.user == self.game.white_user
