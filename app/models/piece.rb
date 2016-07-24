@@ -3,8 +3,6 @@ class Piece < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
-
-
   def white?
     self.user == self.game.white_user
   end
@@ -71,7 +69,7 @@ class Piece < ActiveRecord::Base
   # returns true if the horizontal path is blocked
   def horizontal_blocked?(x,y)
     (x_start(x)...x_end(x)).each do |x|
-      return true if game.square_occupied?(x, y)
+      return true if game.square_occupied?(x,y)
     end
     return false
   end
@@ -79,7 +77,7 @@ class Piece < ActiveRecord::Base
   # returns true if the vertical path is blocked
   def vertical_blocked?(x,y)
     (y_start(y)...y_end(y)).each do |y|
-      return true if game.square_occupied?(x, y)
+      return true if game.square_occupied?(x,y)
     end
     return false
   end
@@ -88,7 +86,7 @@ class Piece < ActiveRecord::Base
   def diagonal_blocked?(x,y)
     (x_start(x)...x_end(x)).each do |x|
       (y_start(y)...y_end(y)).each do |y|
-        return true if game.square_occupied?(x, y)
+        return true if game.square_occupied?(x,y)
       end
     end
     return false
@@ -111,7 +109,7 @@ class Piece < ActiveRecord::Base
 
   # moves piece to the destination square
   def move_to!(x,y)
-    if valid_move?(x, y)
+    if valid_move?(x,y)
       update_attributes(x_position: x, y_position: y)
     end
   end

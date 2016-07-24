@@ -43,22 +43,26 @@ RSpec.describe King, type: :model do
     end
 
     it 'should return false if moving more than one square east' do
-      king = King.create(x_position: 4, y_position: 0)
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
       expect(king.valid_move?(7,0)).to eq false
     end
 
     it 'should return false if moving more than one square south' do
-      king = King.create(x_position: 4, y_position: 0)
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
       expect(king.valid_move?(4,5)).to eq false
     end
 
     it 'should return false if moving more than one square southwest' do
-      king = King.create(x_position: 4, y_position: 0)
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
       expect(king.valid_move?(0,4)).to eq false
     end
 
     it 'should return false if moving to a random square on the board' do
-      king = King.create(x_position: 4, y_position: 0)
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
       expect(king.valid_move?(2,7)).to eq false
     end
   end

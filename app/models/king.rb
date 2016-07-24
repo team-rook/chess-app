@@ -9,7 +9,7 @@ class King < Piece
    def unicode_symbol
       if white?
         return "&#9812;"
-      else 
+      else
       return "&#9818;"
     end
   end
