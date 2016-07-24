@@ -215,4 +215,14 @@ RSpec.describe Piece, type: :model do
       expect(bishop.path_blocked?(5,5)).to eq false
     end
   end
+
+  describe 'move_to!' do
+    it 'should move the piece to the destination square' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 2, game_id: game.id)
+      king.move_to!(4,3)
+      expect(king.x_position).to eq 4
+      expect(king.y_position).to eq 3
+    end
+  end
 end

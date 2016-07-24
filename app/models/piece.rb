@@ -3,7 +3,7 @@ class Piece < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
-  
+
 
   def white?
     self.user == self.game.white_user
@@ -107,5 +107,12 @@ class Piece < ActiveRecord::Base
 
   def captured?
     self.captured == true
+  end
+
+  # moves piece to the destination square
+  def move_to!(x,y)
+    if valid_move?(x, y)
+      update_attributes(x_position: x, y_position: y)
+    end
   end
 end
