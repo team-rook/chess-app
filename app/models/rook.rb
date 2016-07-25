@@ -1,5 +1,5 @@
 class Rook < Piece
-  # can move horizontal or vertical for unlimited spaces
+  # can move horizontal or vertical for unlimited spaces unless path blocked
   def valid_move?(x,y)
     return false if path_blocked?(x,y)
     x_diff = x_diff(x)
@@ -15,11 +15,9 @@ class Rook < Piece
 
   def unicode_symbol
     if white?
-     return "&#9814;"
+      return "&#9814;"
     else
-     return "&#9820;"
+      return "&#9820;"
+    end
   end
-end
-
-
 end

@@ -27,5 +27,11 @@ RSpec.describe Rook, type: :model do
       pawn = Pawn.create(x_position: 2, y_position: 2, game_id: game.id)
       expect(rook.valid_move?(5,2)).to eq false
     end
+
+    it 'should return false if not moving horizontal or vertical' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 2, game_id: game.id)
+      expect(rook.valid_move?(1,3)).to eq false
+    end
   end
 end
