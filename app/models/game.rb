@@ -57,7 +57,7 @@ class Game < ActiveRecord::Base
 
   def piece_data
     data = Hash.new { |hash, key| hash[key] = {} }
-    pieces.each do |piece|
+    pieces.active.each do |piece|
       data[piece.x_position][piece.y_position]=piece
     end
     data
