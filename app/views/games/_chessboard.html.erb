@@ -1,14 +1,13 @@
 <script>
 
  $(function(){
-  $(".column").draggable({
-    update: function(event, ui) {
-     
+
+  $(".piece").draggable({
+    update: function(event, ui){
+
+
     }
-
-
-  });
-
+  })
  });
 
 </script>
@@ -22,11 +21,13 @@
    <% (0..7).each do |column| %>
     <td class="column" data-x-position="<%=column%>" data-y-position="<%=row%>" >
     
-    <% piece = @game.piece_data[column][row] %>
+   <% piece = @game.piece_data[column][row]%> 
+   
 
     <% if piece.present? %>
     
-    <%= piece.unicode_symbol.html_safe%>
+   <div class="piece">  <%= piece.unicode_symbol.html_safe%>
+   </div>
     </td>
   
     <% end %>
