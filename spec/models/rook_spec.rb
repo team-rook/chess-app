@@ -33,5 +33,11 @@ RSpec.describe Rook, type: :model do
       rook = Rook.create(x_position: 0, y_position: 2, game_id: game.id)
       expect(rook.valid_move?(1,3)).to eq false
     end
+
+    it 'should return false if trying to move off the board' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 2, game_id: game.id)
+      expect(rook.valid_move?(-1,8)).to eq false
+    end
   end
 end

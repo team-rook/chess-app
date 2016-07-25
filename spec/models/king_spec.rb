@@ -65,5 +65,11 @@ RSpec.describe King, type: :model do
       king = King.create(x_position: 4, y_position: 0, game_id: game.id)
       expect(king.valid_move?(2,7)).to eq false
     end
+
+    it 'should return false if trying to move off the board' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 0, y_position: 2, game_id: game.id)
+      expect(king.valid_move?(-1,8)).to eq false
+    end
   end
 end

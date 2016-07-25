@@ -99,6 +99,12 @@ class Piece < ActiveRecord::Base
     return diagonal_blocked?(x,y) if diagonal?(x,y)
   end
 
+  # checks if piece can make the desired moved
+  def valid_move?(x,y)
+    return false if x < 0 || x > 7 || y < 0 || y > 7
+    return true
+  end
+
   def captured!
     self.captured = true
   end
