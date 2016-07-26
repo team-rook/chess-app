@@ -4,6 +4,15 @@ class Game < ActiveRecord::Base
   has_many :pieces
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
+
+  def active_player
+    if self.move_counter % 2 == 0
+    return white_user
+   end 
+    return black_user 
+  end
+
+
   def add_black_player(user)
     update(black_user: user)
     initialize_board!
