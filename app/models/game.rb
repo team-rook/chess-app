@@ -4,8 +4,6 @@ class Game < ActiveRecord::Base
   has_many :pieces
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
-  
-
   def add_black_player(user)
     update(black_user: user)
     initialize_board!
@@ -49,20 +47,19 @@ class Game < ActiveRecord::Base
 
   # return piece object occupying x,y square
   def find_piece(x, y)
-    pieces.where(x_position: x, y_position: y).first
+    pieces.active.where(x_position: x, y_position: y).first
   end
 
   # returns true if space is occupied by a piece
   def square_occupied?(x, y)
-    pieces.where(x_position: x, y_position: y).any?
+    pieces.active.where(x_position: x, y_position: y).any?
   end
 
   def piece_data
-  data = Hash.new { |hash, key| hash[key] = {} }
-  pieces.each do |piece|
-    data[piece.x_position][piece.y_position]=piece
+    data = Hash.new { |hash, key| hash[key] = {} }
+    pieces.active.each do |piece|
+      data[piece.x_position][piece.y_position]=piece
+    end
+    data
   end
-  data
-end
-
 end
