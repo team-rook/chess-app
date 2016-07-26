@@ -3,6 +3,8 @@ class Piece < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
+  scope :active, -> { where(captured: nil) }
+
   def white?
     self.user == self.game.white_user
   end
