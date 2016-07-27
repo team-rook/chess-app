@@ -119,7 +119,7 @@ class Piece < ActiveRecord::Base
   def move_to!(x,y)
     if valid_move?(x,y)
       update_attributes(x_position: x, y_position: y)
-      self.game.
+      #self.game.
       self.game.move_counter += 1
     end
   end
