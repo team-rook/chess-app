@@ -1,24 +1,22 @@
 class Pawn < Piece
-  # returns true if pawn moving 1 square north
+  # returns true if white pawn making its first move
+  def first_move_north?(x,y)
+    if self.y_position == 6
+      if y == 5 || y == 4
+        return true
+      else
+        return false
+      end
+    end
+  end
+
+  # returns true if white pawn moving 1 square north
   def one_square_north?(x,y)
     x_diff = x_diff(x)
     y_diff = y_diff(y)
     start_y = self.y_position
     end_y = y
     if (start_y - end_y > 0) && (y_diff == 1) && (x_diff == 0)
-      return true
-    else
-      return false
-    end
-  end
-
-  # returns true if pawn moving 1 square south
-  def one_square_south?(x,y)
-    x_diff = x_diff(x)
-    y_diff = y_diff(y)
-    start_y = self.y_position
-    end_y = y
-    if (start_y - end_y < 0) && (y_diff == 1) && (x_diff == 0)
       return true
     else
       return false
@@ -37,32 +35,11 @@ class Pawn < Piece
     # checks for white pawn
     if self.white?
       # allow white pawn to move 2 squares north on its first move only
-      if self.y_position == 6
-        if y == 5 || y == 4
-          return true
-        else
-          return false
-        end
+      if self.first_move_north?(x,y)
+        return true
       # otherwise can only move 1 square north
       else
         if self.one_square_north?(x,y)
-          return true
-        else
-          return false
-        end
-      end
-    end
-    # allow black pawn to move 2 squares south on its first move only
-    if self.black?
-      if self.y_position == 1
-        if y == 2 || y == 3
-          return true
-        else
-          return false
-        end
-      # otherwise can only move 1 square south
-      else
-        if self.one_square_south?(x,y)
           return true
         else
           return false
