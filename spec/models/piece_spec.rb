@@ -225,4 +225,20 @@ RSpec.describe Piece, type: :model do
       expect(king.y_position).to eq 3
     end
   end
+
+  describe 'white?' do
+    it 'should return true for white piece' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      pawn = Pawn.create(x_position: 0, y_position: 6, game_id: game.id, user_id: 0)
+      expect(pawn.white?).to be true
+    end
+  end
+
+  describe 'black?' do
+    it 'should return true for black piece' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      pawn = Pawn.create(x_position: 0, y_position: 1, game_id: game.id, user_id: 1)
+      expect(pawn.black?).to be true
+    end
+  end
 end
