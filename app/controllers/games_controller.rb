@@ -10,6 +10,8 @@ before_action :authenticate_user!, only: [:new, :join, :create]
     
   end
 
+ 
+
   def create
     @game = Game.create(game_params)
     @game.white_user = current_user

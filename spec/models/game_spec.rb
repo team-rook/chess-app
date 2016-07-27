@@ -9,6 +9,8 @@ RSpec.describe Game, type: :model do
     end
   end
 
+  
+
   describe 'find_piece' do
     it 'should return a piece object for the input x,y coordinate' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
