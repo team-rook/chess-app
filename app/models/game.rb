@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
 
 
   def active_player
-    if self.move_counter % 2 == 0
+    if self.move_counter % 2 == 0 
     return white_user
    end 
     return black_user 

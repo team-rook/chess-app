@@ -12,9 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
-ActiveRecord::Schema.define(version: 20160726170111) do
 
-ActiveRecord::Schema.define(version: 20160726032542) do
 
 ActiveRecord::Schema.define(version: 20160717231536) do
 
