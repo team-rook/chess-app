@@ -240,5 +240,19 @@ RSpec.describe Piece, type: :model do
       pawn = Pawn.create(x_position: 0, y_position: 1, game_id: game.id, user_id: 1)
       expect(pawn.black?).to be true
     end
+
+  describe 'valid_move?' do
+    it 'should return false if a move is out of bounds' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id)
+      expect(king.valid_move?(4,8)).to eq false
+    end
+
+    it 'should return false if the target is occupied by a friendly piece' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
+      queen = Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
+      expect(king.valid_move?(3,7)).to eq false
+    end    
   end
 end
