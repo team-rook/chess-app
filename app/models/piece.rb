@@ -124,6 +124,9 @@ class Piece < ActiveRecord::Base
   # moves piece to the destination square
   def move_to!(x,y)
     if valid_move?(x,y)
+      if self.game.square_occupied?(x,y)
+        game.find_piece(x,y).captured!
+      end
       update_attributes(x_position: x, y_position: y)
       self.game.move_counter += 1
     end

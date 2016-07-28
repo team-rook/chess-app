@@ -224,6 +224,16 @@ RSpec.describe Piece, type: :model do
       expect(king.x_position).to eq 4
       expect(king.y_position).to eq 3
     end
+
+    # it 'should move the piece to the destination square; if the square is occupied, mark that piece as captured' do
+    #   game = Game.create(white_user_id: 0, black_user_id: 1)
+    #   king = King.create(x_position: 4, y_position: 2, game_id: game.id)
+    #   rook = Rook.create(x_position: 4, y_position: 3, game_id: game.id)
+    #   king.move_to!(4,3)
+    #   expect(king.x_position).to eq 4
+    #   expect(king.y_position).to eq 3
+    #   expect(rook.captured).to eq true
+    # end
   end
 
   describe 'white?' do
