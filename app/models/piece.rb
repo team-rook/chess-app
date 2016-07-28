@@ -10,7 +10,7 @@ class Piece < ActiveRecord::Base
   end
 
   def black?
-    !white?
+    self.user == self.game.black_user
   end
 
   def self.types
@@ -114,12 +114,11 @@ class Piece < ActiveRecord::Base
   def captured?
     self.captured == true
   end
-  #valid move missing
+
   # moves piece to the destination square
   def move_to!(x,y)
     if valid_move?(x,y)
       update_attributes(x_position: x, y_position: y)
-      #self.game.
       self.game.move_counter += 1
     end
   end
