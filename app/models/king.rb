@@ -15,30 +15,27 @@ class King < Piece
     return false
   end
 
-
   def can_castle?(x,y)
     never_moved? && (castle_kingside?(x,y) || castle_queenside?(x,y))
   end
 
   #determines if king is attempting to castle on the kingside
   def castle_kingside?(x,y)
-    x == 6 && castle_rook && castle_rook.x_position == 7 && \
-    castle_rook.never_moved? && \
-    castle_rook.path_blocked?(5, y_position) == false && \
-    [y, castle_rook.y_position].uniq == y_position
+    x == 6 && y == y_position && castle_rook && \
+    castle_rook.x_position == 7 && castle_rook.never_moved? && \
+    castle_rook.path_blocked?(4, y_position) == false
   end
 
   #determines if king is attempting to castle on the queenside
   def castle_queenside?(x,y)
-    x == 2 && castle_rook && castle_rook.x_position == 0 && \
-    castle_rook.never_moved? && \
-    castle_rook.path_blocked?(3, y_position) == false && \
-    [y, castle_rook.y_position].uniq == y_position
+    x == 2 &&  y == y_position && castle_rook && \
+    castle_rook.x_position == 0 && castle_rook.never_moved? && \
+    castle_rook.path_blocked?(4, y_position) == false 
   end
 
   #determines if there is a rook to castle with
   def castle_rook
-    @castle_rook = game.pieces.where(y_position: y_position, user_id: user_id, type: Rook).first 
+    @castle_rook = game.pieces.where(y_position: y_position, user_id: user_id, type: 'Rook').first 
   end
 
 

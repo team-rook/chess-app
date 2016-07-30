@@ -4,16 +4,16 @@ RSpec.describe King, type: :model do
   describe 'valid_move?' do
      it 'should return true if attempting to castle kingside and can castle' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
-      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
-      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id)
-      expect(king.valid_move?(6,0)).to eq true
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      expect(king.can_castle?(6,0)).to eq true
     end
 
      it 'should return true if attempting to castle queenside and can castle' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
-      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
-      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
-      expect(king.valid_move?(2,0)).to eq true
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      expect(king.castle_queenside?(2,0)).to eq true
     end    
 
     it 'should return false if attempting to castle kingside and bishop present' do
@@ -50,9 +50,9 @@ RSpec.describe King, type: :model do
 
     it 'should return false if attempting to castle queenside and queen present' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
-      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
-      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
-      queen = Queen.create(x_position: 3, y_position:0, game_id: game.id)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      queen = Queen.create(x_position: 3, y_position:0, game_id: game.id, user_id: 1)
       expect(king.valid_move?(2,0)).to eq false
     end    
 
