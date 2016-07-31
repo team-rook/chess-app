@@ -1,7 +1,126 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
+
+  describe 'king move_to!' do
+    it 'should move the rook to correct position when castling kingside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      king.move_to!(6,0)
+      expect(king.x_position).to eq 6
+      expect(king.y_position).to eq 0
+      expect(rook.x_position).to eq 5
+      expect(rook.y_position).to eq 0
+    end
+  end
+
+  describe 'castle!' do
+    it 'should move the king to correct position when castling kingside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      king.can_castle?(6,0)
+      king.castle!
+      expect(rook.x_position).to eq 5
+      expect(rook.y_position).to eq 0
+    end
+  end
+
   describe 'valid_move?' do
+     it 'should return true if attempting to castle kingside and can castle' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      expect(king.valid_move?(6,0)).to eq true
+    end
+
+     it 'should return true if attempting to castle queenside and can castle' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      expect(king.valid_move?(2,0)).to eq true
+    end    
+
+    it 'should return false if attempting to castle kingside and bishop present' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id)
+      bishop = Bishop.create(x_position: 5, y_position:0, game_id: game.id)
+      expect(king.valid_move?(6,0)).to eq false
+    end
+
+    it 'should return false if attempting to castle kingside and knight present' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id)
+      knight = Knight.create(x_position: 6, y_position:0, game_id: game.id)
+      expect(king.valid_move?(6,0)).to eq false
+    end
+
+    it 'should return false if attempting to castle queenside and bishop present' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
+      bishop = Bishop.create(x_position: 2, y_position:0, game_id: game.id)
+      expect(king.valid_move?(2,0)).to eq false
+    end
+
+    it 'should return false if attempting to castle queenside and knight present' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
+      knight = Knight.create(x_position: 1, y_position:0, game_id: game.id)
+      expect(king.valid_move?(2,0)).to eq false
+    end
+
+    it 'should return false if attempting to castle queenside and queen present' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      queen = Queen.create(x_position: 3, y_position:0, game_id: game.id, user_id: 1)
+      expect(king.valid_move?(2,0)).to eq false
+    end    
+
+    it 'should return false if  attempting to castle kingside and 7 rook has been moved' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id)
+      rook.move_to!(6,0)
+      rook.move_to!(7,0)
+      expect(king.valid_move?(6,0)).to eq false
+    end
+
+    it 'should return false if attempting to castle queenside and 0 rook has been moved' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id)
+      rook.move_to!(1,0)
+      rook.move_to!(0,0)
+      expect(king.valid_move?(6,0)).to eq false
+    end
+
+    it 'should return false if attempting to castle and king has been moved' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id)
+      king.move_to!(3,0)
+      king.move_to!(4,0)
+      expect(king.valid_move?(6,0)).to eq false
+    end
+
+    it 'should return false if attempting to move 2 squares south' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id)
+      expect(king.valid_move?(4,2)).to eq false
+    end
+
+    it 'should return false if attempting to move 2 squares north' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id)
+      expect(king.valid_move?(4,5)).to eq false
+    end
+
     it 'should return true if moving one square east' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 0, game_id: game.id)

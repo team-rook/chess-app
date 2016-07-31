@@ -250,6 +250,7 @@ RSpec.describe Piece, type: :model do
       pawn = Pawn.create(x_position: 0, y_position: 1, game_id: game.id, user_id: 1)
       expect(pawn.black?).to be true
     end
+  end
 
   describe 'valid_move?' do
     it 'should return false if a move is out of bounds' do
@@ -263,6 +264,6 @@ RSpec.describe Piece, type: :model do
       king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
       queen = Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
       expect(king.valid_move?(3,7)).to eq false
-    end    
+    end   
   end
 end
