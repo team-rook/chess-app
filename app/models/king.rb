@@ -38,17 +38,13 @@ class King < Piece
     @castle_rook = game.pieces.where(y_position: y_position, user_id: user_id, type: 'Rook').first 
   end
 
-
   def castle!
-    castle_rook.move_to!((rook.x_position - (rook.x_position - king.x_position).abs + 1), y_position)
+    castle_rook.move_to!((castle_rook.x_position - (castle_rook.x_position - x_position).abs + 1), y_position)
   end
 
-
   def move_to!(x,y)
-    success = super(x,y)
-    if success 
-      castle! if can_castle?(x,y)
-    end
+    castle! if can_castle?(x,y)
+    super(x,y)
   end
 
 

@@ -1,19 +1,45 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
+
+  describe 'king move_to!' do
+    it 'should move the rook to correct position when castling kingside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      king.move_to!(6,0)
+      expect(king.x_position).to eq 6
+      expect(king.y_position).to eq 0
+      expect(rook.x_position).to eq 5
+      expect(rook.y_position).to eq 0
+    end
+  end
+
+  describe 'castle!' do
+    it 'should move the king to correct position when castling kingside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      king.can_castle?(6,0)
+      king.castle!
+      expect(rook.x_position).to eq 5
+      expect(rook.y_position).to eq 0
+    end
+  end
+
   describe 'valid_move?' do
      it 'should return true if attempting to castle kingside and can castle' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
       rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
-      expect(king.can_castle?(6,0)).to eq true
+      expect(king.valid_move?(6,0)).to eq true
     end
 
      it 'should return true if attempting to castle queenside and can castle' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
       rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
-      expect(king.castle_queenside?(2,0)).to eq true
+      expect(king.valid_move?(2,0)).to eq true
     end    
 
     it 'should return false if attempting to castle kingside and bishop present' do
