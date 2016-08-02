@@ -243,17 +243,38 @@ RSpec.describe Piece, type: :model do
   end
 
   describe 'valid_move?' do
-    it 'should return false if a move is out of bounds' do
+    it 'should return true if a move is in bounds' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 7, game_id: game.id)
-      expect(king.valid_move?(4, 8)).to eq false
+      expect(king.valid_move?(3,7)).to eq true
     end
 
-    it 'should return false if the target is occupied by a friendly piece' do
+    it 'should return false if the target is occupied by a friendly piece - white' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
       Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
       expect(king.valid_move?(3, 7)).to eq false
+    end
+
+    it 'should return false if the target is occupied by a friendly piece - black' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 1)
+      Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 1)
+      expect(king.valid_move?(3, 7)).to eq false
+    end
+
+    it 'should return true if the square is occupied by a white enemy piece' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 1)
+      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
+      expect(king.valid_move?(3,7)).to eq true
+    end
+
+    it 'should return true if the square is occupied by a black enemy piece' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
+      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 1)
+      expect(king.valid_move?(3,7)).to eq true
     end
   end
 
@@ -262,6 +283,5 @@ RSpec.describe Piece, type: :model do
       king = King.create(x_position: 4, y_position: 2)
       king.captured!
       expect(king.captured).to eq true
-    end
   end
 end
