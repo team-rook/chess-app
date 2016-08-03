@@ -242,7 +242,14 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+
   describe 'valid_move?' do
+    it 'should return false if a move is out of bounds' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id)
+      expect(king.valid_move?(4, 8)).to eq false
+    end
+
     it 'should return true if a move is in bounds' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 7, game_id: game.id)
@@ -264,16 +271,20 @@ RSpec.describe Piece, type: :model do
     end
 
     it 'should return true if the square is occupied by a white enemy piece' do
-      game = Game.create(white_user_id: 0, black_user_id: 1)
-      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 1)
-      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: black_user.id)
+      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: white_user.id)
       expect(king.valid_move?(3,7)).to eq true
     end
 
     it 'should return true if the square is occupied by a black enemy piece' do
-      game = Game.create(white_user_id: 0, black_user_id: 1)
-      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
-      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 1)
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: white_user.id)
+      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: black_user.id)
       expect(king.valid_move?(3,7)).to eq true
     end
   end
