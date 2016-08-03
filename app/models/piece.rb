@@ -111,11 +111,14 @@ class Piece < ActiveRecord::Base
     else
       return true
     end
-
   end
 
   def captured!
+    puts 'set field to captured'
+    puts "current piece: #{self}"
+    puts "captured status: #{self.captured}"
     self.update(captured: true)
+    puts "updated captured status: #{self.captured}"
   end
 
   def captured?
