@@ -224,7 +224,10 @@ RSpec.describe Piece, type: :model do
       expect(king.x_position).to eq 4
       expect(king.y_position).to eq 3
     end
+<<<<<<< HEAD
   end
+=======
+>>>>>>> added test for captured! method
 
   describe 'white?' do
     it 'should return true for white piece' do
