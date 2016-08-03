@@ -242,7 +242,6 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-
   describe 'valid_move?' do
     it 'should return false if a move is out of bounds' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
