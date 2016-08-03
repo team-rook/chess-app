@@ -267,7 +267,7 @@ RSpec.describe Piece, type: :model do
   #     expect(king.y_position).to eq 3
   #     expect(rook.captured).to eq true
   #   end
-  # end
+  end
 
   describe 'captured!' do
     it 'should set captured field to true' do
