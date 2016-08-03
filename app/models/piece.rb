@@ -114,11 +114,11 @@ class Piece < ActiveRecord::Base
   end
 
   def captured!
-    puts 'set field to captured'
-    puts "current piece: #{self}"
-    puts "captured status: #{self.captured}"
-    self.update(captured: true)
-    puts "updated captured status: #{self.captured}"
+    puts "set field to captured" # confirms method is called
+    puts "current piece: #{self}" # --> #<Rook:0xb8d9313c> (as expected)
+    puts "captured status: #{self.captured}" # --> nil (as expected)
+    self.update(captured: true) # magic
+    puts "updated captured status: #{self.captured}" # --> true (as expected)
   end
 
   def captured?

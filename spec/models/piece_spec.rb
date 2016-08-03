@@ -225,6 +225,7 @@ RSpec.describe Piece, type: :model do
       expect(king.y_position).to eq 3
     end
 
+<<<<<<< HEAD
   #   it 'should move the piece to the destination square; if the square is occupied, mark that piece as captured' do
   #     white_user = FactoryGirl.create(:user)
   #     black_user = FactoryGirl.create(:user)
@@ -279,15 +280,6 @@ RSpec.describe Piece, type: :model do
       king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 1)
       Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 1)
       expect(king.valid_move?(3, 7)).to eq false
-    end
-
-    it 'should return true if the square is occupied by a white enemy piece' do
-      white_user = FactoryGirl.create(:user)
-      black_user = FactoryGirl.create(:user)
-      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
-      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: black_user.id)
-      Pawn.create(x_position: 3, y_position: 7, game_id: game.id, user_id: white_user.id)
-      expect(king.valid_move?(3,7)).to eq true
     end
 
     it 'should return true if the square is occupied by a black enemy piece' do
