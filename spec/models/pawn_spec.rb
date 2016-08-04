@@ -114,7 +114,7 @@ RSpec.describe Pawn, type: :model do
       game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
       white_pawn = Pawn.create(x_position: 1, y_position: 3, game_id: game.id, user_id: white_user.id)
       black_pawn = Pawn.create(x_position: 0, y_position: 3, game_id: game.id, user_id: black_user.id)
-      white_pawn.move_to!(0,2)
+      white_pawn.en_passant!(0,2)
       black_pawn.reload
       expect(white_pawn.x_position).to eq 0
       expect(white_pawn.y_position).to eq 2
@@ -127,7 +127,7 @@ RSpec.describe Pawn, type: :model do
       game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
       white_pawn = Pawn.create(x_position: 1, y_position: 3, game_id: game.id, user_id: white_user.id)
       black_pawn = Pawn.create(x_position: 2, y_position: 3, game_id: game.id, user_id: black_user.id)
-      white_pawn.move_to!(2,2)
+      white_pawn.en_passant!(2,2)
       black_pawn.reload
       expect(white_pawn.x_position).to eq 2
       expect(white_pawn.y_position).to eq 2
@@ -140,7 +140,7 @@ RSpec.describe Pawn, type: :model do
       game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
       white_pawn = Pawn.create(x_position: 0, y_position: 4, game_id: game.id, user_id: white_user.id)
       black_pawn = Pawn.create(x_position: 1, y_position: 4, game_id: game.id, user_id: black_user.id)
-      black_pawn.move_to!(0,5)
+      black_pawn.en_passant!(0,5)
       white_pawn.reload
       expect(black_pawn.x_position).to eq 0
       expect(black_pawn.y_position).to eq 5
@@ -153,7 +153,7 @@ RSpec.describe Pawn, type: :model do
       game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
       white_pawn = Pawn.create(x_position: 2, y_position: 4, game_id: game.id, user_id: white_user.id)
       black_pawn = Pawn.create(x_position: 1, y_position: 4, game_id: game.id, user_id: black_user.id)
-      black_pawn.move_to!(2,5)
+      black_pawn.en_passant!(2,5)
       white_pawn.reload
       expect(black_pawn.x_position).to eq 2
       expect(black_pawn.y_position).to eq 5

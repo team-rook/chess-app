@@ -35,6 +35,21 @@ class Pawn < Piece
     return false
   end
 
+  def valid_move?(x,y)
+    return false unless super(x,y)
+    return false if path_blocked?(x,y)
+    # pawns cannot move backwards
+    return false if white? && south?(y)
+    return false if black? && north?(y)
+    # each pawn can move forward 1 or 2 spaces for its first move only
+    # otherwise move 1 space forward
+    return true if standard_move?(x,y) || first_move?(x,y)
+    # pawns capture one square diagonally
+    return true if standard_capture?(x,y)
+    return false
+  end
+
+  # returns true if unfriendly pawn on square
   def unfriendly_pawn?(x,y)
     piece = self.game.find_piece(x,y)
     return (piece.type == "Pawn") && ((piece.white? != white?) || (piece.black? != black?))
@@ -52,18 +67,18 @@ class Pawn < Piece
     end
   end
 
-  def valid_move?(x,y)
-    return false unless super(x,y)
-    return false if path_blocked?(x,y)
-    # pawns cannot move backwards
-    return false if white? && south?(y)
-    return false if black? && north?(y)
-    # each pawn can move forward 1 or 2 spaces for its first move only
-    # otherwise move 1 space forward
-    return true if standard_move?(x,y) || first_move?(x,y)
-    # pawns capture one square diagonally
-    return true if standard_capture?(x,y)
-    return false
+  # executes en_passant capture
+  def en_passant!(x,y)
+    if black? && en_passant?(x,y)
+      unfriendly_y = y - 1
+      self.game.find_piece(x,unfriendly_y).captured!
+    end
+    if white? && en_passant?(x,y)
+      unfriendly_y = y + 1
+      self.game.find_piece(x,unfriendly_y).captured!
+    end
+    update_attributes(x_position: x, y_position: y)
+    self.game.move_counter += 1
   end
 
   def unicode_symbol
