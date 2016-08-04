@@ -1,6 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
+  describe 'unfriendly_pawn?' do
+    it 'should return true if unfriendly pawn at square' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      white_pawn = Pawn.create(x_position: 0, y_position: 4, game_id: game.id, user_id: white_user.id)
+      black_pawn = Pawn.create(x_position: 1, y_position: 4, game_id: game.id, user_id: black_user.id)
+      expect(white_pawn.unfriendly_pawn?(1,4)).to be true
+    end
+  end
+
+  describe 'en_passant?' do
+    it 'should return true if unfriendly pawn can be captured' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      white_pawn = Pawn.create(x_position: 0, y_position: 4, game_id: game.id, user_id: white_user.id)
+      black_pawn = Pawn.create(x_position: 1, y_position: 4, game_id: game.id, user_id: black_user.id)
+      expect(black_pawn.en_passant?(0,5)).to be true
+    end
+  end
+  
   describe 'valid_move?' do
     it 'should return true if a white pawn is moving 2 squares north for its first move' do
       white_user = FactoryGirl.create(:user)
