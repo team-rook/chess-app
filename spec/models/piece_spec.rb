@@ -225,19 +225,19 @@ RSpec.describe Piece, type: :model do
       expect(king.y_position).to eq 3
     end
 
-<<<<<<< HEAD
-  #   it 'should move the piece to the destination square; if the square is occupied, mark that piece as captured' do
-  #     white_user = FactoryGirl.create(:user)
-  #     black_user = FactoryGirl.create(:user)
-  #     game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
-  #     king = King.create(x_position: 4, y_position: 2, game_id: game.id, user_id: white_user.id)
-  #     rook = Rook.create(x_position: 4, y_position: 3, game_id: game.id, user_id: black_user.id)
-  #     king.move_to!(4,3)
-  #     expect(king.x_position).to eq 4
-  #     expect(king.y_position).to eq 3
-  #     expect(rook.captured).to eq true
-  #   end
-  # end
+    it 'should move the piece to the destination square; if the square is occupied, mark that piece as captured' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      king = King.create(x_position: 4, y_position: 2, game_id: game.id, user_id: white_user.id)
+      rook = Rook.create(x_position: 4, y_position: 3, game_id: game.id, user_id: black_user.id)
+      king.move_to!(4,3)
+      rook.reload
+      expect(king.x_position).to eq 4
+      expect(king.y_position).to eq 3
+      expect(rook.captured).to eq true
+    end
+  end
 
   describe 'white?' do
     it 'should return true for white piece' do

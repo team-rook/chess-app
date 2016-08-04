@@ -103,7 +103,6 @@ class Piece < ActiveRecord::Base
 
   # checks if piece can make the desired moved
   def valid_move?(x,y)
-    #puts 'start valid move'
     if self.game.square_occupied?(x,y)
       self.white? != self.game.find_piece(x,y).white?      
     elsif x < 0 || x > 7 || y < 0 || y > 7
@@ -114,11 +113,7 @@ class Piece < ActiveRecord::Base
   end
 
   def captured!
-    puts "set field to captured" # confirms method is called
-    puts "current piece: #{self}" # --> #<Rook:0xb8d9313c> (as expected)
-    puts "captured status: #{self.captured}" # --> nil (as expected)
-    self.update(captured: true) # magic
-    puts "updated captured status: #{self.captured}" # --> true (as expected)
+    self.update(captured: true)
   end
 
   def captured?
