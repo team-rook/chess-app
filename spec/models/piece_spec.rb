@@ -293,5 +293,6 @@ RSpec.describe Piece, type: :model do
       king = King.create(x_position: 4, y_position: 2)
       king.captured!
       expect(king.captured).to eq true
+    end
   end
 end
