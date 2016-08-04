@@ -35,6 +35,23 @@ class Pawn < Piece
     return false
   end
 
+  def unfriendly_pawn?(x,y)
+    piece = self.game.find_piece(x,y)
+    return (piece.type == "Pawn") && ((piece.white? != white?) || (piece.black? != black?))
+  end
+
+  # returns true if pawn can execute en passant capture
+  def en_passant?(x,y)
+    if black?
+      unfriendly_y = y - 1
+      return unfriendly_pawn?(x,unfriendly_y)
+    end
+    if white?
+      unfriendly_y = y + 1
+      return unfriendly_pawn?(x,unfriendly_y)
+    end
+  end
+
   def valid_move?(x,y)
     return false unless super(x,y)
     return false if path_blocked?(x,y)
