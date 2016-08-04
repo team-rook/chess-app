@@ -35,12 +35,6 @@ class Pawn < Piece
     return false
   end
 
-  # returns true if unfriendly pawn on square
-  def unfriendly_pawn?(x,y)
-    pawn = self.game.pawn?(x,y)
-    pawn && pawn.white? != white?
-  end
-
   def valid_move?(x,y)
     return false unless super(x,y)
     return false if path_blocked?(x,y)
