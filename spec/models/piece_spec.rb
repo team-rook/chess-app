@@ -224,17 +224,6 @@ RSpec.describe Piece, type: :model do
       expect(king.x_position).to eq 4
       expect(king.y_position).to eq 3
     end
-
-    # it 'should move the piece to the destination square; ' +
-    #     'if the square is occupied, mark that piece as captured' do
-    #   game = Game.create(white_user_id: 0, black_user_id: 1)
-    #   king = King.create(x_position: 4, y_position: 2, game_id: game.id)
-    #   rook = Rook.create(x_position: 4, y_position: 3, game_id: game.id)
-    #   king.move_to!(4,3)
-    #   expect(king.x_position).to eq 4
-    #   expect(king.y_position).to eq 3
-    #   expect(rook.captured).to eq true
-    # end
   end
 
   describe 'white?' do
@@ -251,20 +240,28 @@ RSpec.describe Piece, type: :model do
       pawn = Pawn.create(x_position: 0, y_position: 1, game_id: game.id, user_id: 1)
       expect(pawn.black?).to be true
     end
+  end
 
-    describe 'valid_move?' do
-      it 'should return false if a move is out of bounds' do
-        game = Game.create(white_user_id: 0, black_user_id: 1)
-        king = King.create(x_position: 4, y_position: 7, game_id: game.id)
-        expect(king.valid_move?(4, 8)).to eq false
-      end
+  describe 'valid_move?' do
+    it 'should return false if a move is out of bounds' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id)
+      expect(king.valid_move?(4, 8)).to eq false
+    end
 
-      it 'should return false if the target is occupied by a friendly piece' do
-        game = Game.create(white_user_id: 0, black_user_id: 1)
-        king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
-        Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
-        expect(king.valid_move?(3, 7)).to eq false
-      end
+    it 'should return false if the target is occupied by a friendly piece' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 7, game_id: game.id, user_id: 0)
+      Queen.create(x_position: 3, y_position: 7, game_id: game.id, user_id: 0)
+      expect(king.valid_move?(3, 7)).to eq false
+    end
+  end
+
+  describe 'captured!' do
+    it 'should set captured field to true' do
+      king = King.create(x_position: 4, y_position: 2)
+      king.captured!
+      expect(king.captured).to eq true
     end
   end
 end

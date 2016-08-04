@@ -103,6 +103,7 @@ class Piece < ActiveRecord::Base
 
   # checks if piece can make the desired moved
   def valid_move?(x,y)
+    #puts 'start valid move'
     if self.game.square_occupied?(x,y)
       self.white? != self.game.find_piece(x,y).white?
     elsif x < 0 || x > 7 || y < 0 || y > 7
@@ -125,7 +126,7 @@ class Piece < ActiveRecord::Base
   def move_to!(x,y)
     if valid_move?(x,y)
       if self.game.square_occupied?(x,y)
-        game.find_piece(x,y).captured!
+        self.game.find_piece(x,y).captured!
       end
       update_attributes(x_position: x, y_position: y)
       self.game.move_counter += 1
