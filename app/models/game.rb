@@ -4,7 +4,6 @@ class Game < ActiveRecord::Base
   has_many :pieces
   scope :needing_second_player, -> { where(black_user_id: nil) }
 
-
   def active_player
     if self.move_counter % 2 == 0
       return white_user
@@ -69,5 +68,24 @@ class Game < ActiveRecord::Base
       data[piece.x_position][piece.y_position]=piece
     end
     data
+  end
+
+  # returns true if current player is facing a check state
+  def check?
+    current_player = self.active_player.id
+    current_king = King.active.where(user_id: current_player).first
+    king_x = current_king.x_position
+    king_y = current_king.y_position
+
+    pieces.active.each do | piece |
+      # only check for enemy pieces
+      if piece.user_id != current_player
+        # check if enemy pieces threaten the kings location
+        if piece.valid_move?(king_x, king_y)
+          return true # definitively return true
+        end
+      end
+    end
+    return false # definitively return false
   end
 end
