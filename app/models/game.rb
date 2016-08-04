@@ -70,4 +70,8 @@ class Game < ActiveRecord::Base
     end
     data
   end
+
+  def check?
+
+  end
 end
