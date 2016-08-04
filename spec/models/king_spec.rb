@@ -1,29 +1,66 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
-
   describe 'king move_to!' do
-    it 'should move the rook to correct position when castling kingside' do
+    it 'should move the correct rook to correct position when castling kingside' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
-      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1)
       king.move_to!(6,0)
-      expect(king.x_position).to eq 6
-      expect(king.y_position).to eq 0
-      expect(rook.x_position).to eq 5
-      expect(rook.y_position).to eq 0
+      expect(game.pieces.where(x_position: 5, y_position: 0).first).to have_attributes(:type => "Rook")
+      expect(game.pieces.where(x_position: 7, y_position: 0).first).to be nil
+      expect(game.pieces.where(x_position: 0, y_position: 0).first).to have_attributes(:type => "Rook")
     end
-  end
 
-  describe 'castle!' do
     it 'should move the king to correct position when castling kingside' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
-      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1)
+      king.move_to!(6,0)
+      expect(king).to have_attributes(:type => "King", :x_position => 6, :y_position => 0 )
+    end
+
+    it 'should move the king to correct position when castling queenside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1)
+      king.move_to!(2,0)
+      expect(king).to have_attributes(:type => "King", :x_position => 2, :y_position => 0)
+    end
+
+    it 'should move the correct rook to correct position when castling queenside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1)
+      king.move_to!(2,0)
+      expect(game.pieces.where(x_position: 7, y_position: 0).first).to have_attributes(:type => "Rook")
+      expect(game.pieces.where(x_position: 0, y_position: 0).first).to be nil
+      expect(game.pieces.where(x_position: 3, y_position: 0).first).to have_attributes(:type => "Rook")    end
+  end
+
+  describe 'castle!' do
+    it 'should move the rook to correct position when castling kingside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1)
       king.can_castle?(6,0)
-      king.castle!
-      expect(rook.x_position).to eq 5
-      expect(rook.y_position).to eq 0
+      king.castle!(6,0)
+      expect(game.pieces.where(x_position: 5, y_position: 0).first).to have_attributes(:type => "Rook")
+    end
+
+    it 'should move the rook to correct position when castling queenside' do
+      game = Game.create(white_user_id: 0, black_user_id: 1)
+      king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1 )
+      rook = Rook.create(x_position: 7, y_position: 0, game_id: game.id, user_id: 1)
+      king.can_castle?(2,0)
+      king.castle!(2,0)
+      expect(game.pieces.where(x_position: 3, y_position: 0).first).to have_attributes(:type => "Rook")
     end
   end
 

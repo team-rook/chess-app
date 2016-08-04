@@ -21,29 +21,40 @@ class King < Piece
 
   #determines if king is attempting to castle on the kingside
   def castle_kingside?(x,y)
-    x == 6 && y == y_position && castle_rook && \
-    castle_rook.x_position == 7 && castle_rook.never_moved? && \
-    castle_rook.path_blocked?(4, y_position) == false
+    x == 6 && y == y_position && castle_rook_kingside && \
+    castle_rook_kingside.never_moved? && \
+    castle_rook_kingside.path_blocked?(4, y_position) == false
   end
 
   #determines if king is attempting to castle on the queenside
   def castle_queenside?(x,y)
-    x == 2 &&  y == y_position && castle_rook && \
-    castle_rook.x_position == 0 && castle_rook.never_moved? && \
-    castle_rook.path_blocked?(4, y_position) == false 
+    x == 2 &&  y == y_position && castle_rook_queenside && \
+    castle_rook_queenside.never_moved? && \
+    castle_rook_queenside.path_blocked?(4, y_position) == false 
   end
 
-  #determines if there is a rook to castle with
-  def castle_rook
-    @castle_rook = game.pieces.where(y_position: y_position, user_id: user_id, type: 'Rook').first 
+  #determines if there is a rook to castle with kingside
+  def castle_rook_kingside
+    @castle_rook_kingside = game.pieces.where(x_position: 7 , y_position: y_position, user_id: user_id, type: 'Rook').first
   end
 
-  def castle!
-    castle_rook.move_to!((castle_rook.x_position - (castle_rook.x_position - x_position).abs + 1), y_position)
+  #determines if there is a rook to castle with queenside
+  def castle_rook_queenside
+    @castle_rook_queenside = game.pieces.where(x_position: 0 , y_position: y_position, user_id: user_id, type: 'Rook').first
+  end
+  #moves the rook when castling
+  def castle!(x,y)
+    if castle_kingside?(x,y)
+      castle_rook_kingside.update_attributes(x_position: 5, y_position: y_position)
+    end
+    if castle_queenside?(x,y)
+      castle_rook_queenside.update_attributes(x_position:3, y_position: y_position)
+    end
+      update_attributes(x_position: x, y_position: y)
   end
 
   def move_to!(x,y)
-    castle! if can_castle?(x,y)
+    castle!(x,y) if can_castle?(x,y)
     super(x,y)
   end
 
