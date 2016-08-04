@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
+  describe 'active_player' do
+    it 'should return the white user when the move counter is even' do
+
+    end
+
+  end
+
   describe 'initialize_board!' do
     it 'should have correct number of pieces' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
@@ -29,11 +36,19 @@ RSpec.describe Game, type: :model do
     it 'should return true if the active players king is threatened' do
       white_user = FactoryGirl.create(:user)
       black_user = FactoryGirl.create(:user)
-      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id, move_counter: 1)
       King.create(x_position: 0, y_position: 7, user_id: black_user.id, game_id: game.id)
       King.create(x_position: 0, y_position: 5, user_id: white_user.id, game_id: game.id)
       Rook.create(x_position: 2, y_position: 7, user_id: white_user.id, game_id: game.id)
       expect(game.check?).to eq true
+    end
+
+    it 'should return false if the active players king is not threatened' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      game.initialize_board!
+      expect(game.check?).to eq false
     end
   end
 end
