@@ -3,9 +3,18 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
   describe 'active_player' do
     it 'should return the white user when the move counter is even' do
-
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id, move_counter: 0)
+      expect(game.active_player).to eq white_user
     end
 
+    it 'should return the black user when the move counter is odd' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id, move_counter: 1)
+      expect(game.active_player).to eq black_user
+    end
   end
 
   describe 'initialize_board!' do
