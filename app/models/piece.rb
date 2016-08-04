@@ -120,6 +120,10 @@ class Piece < ActiveRecord::Base
     self.captured == true
   end
 
+  def never_moved?
+    updated_at == created_at
+  end
+
   # moves piece to the destination square
   def move_to!(x,y)
     if valid_move?(x,y)
