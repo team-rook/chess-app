@@ -9,13 +9,8 @@ class Pawn < Piece
     return ((y_position - y) < 0)
   end
 
-  # returns true if pawn has never moved from home row
-  def on_home_row?
-    return (white? && y_position == 6) || y_position == 1
-  end
-
   # returns true for first move only
-  def first_move?(x,y)
+  def two_squares?(x,y)
     return on_home_row? && (x_diff(x) == 0) && (y_diff(y) == 2)
   end
 
@@ -43,39 +38,31 @@ class Pawn < Piece
     return false if black? && north?(y)
     # each pawn can move forward 1 or 2 spaces for its first move only
     # otherwise move 1 space forward
-    return true if standard_move?(x,y) || first_move?(x,y)
+    return true if standard_move?(x,y) || two_squares?(x,y)
     # pawns capture one square diagonally
     return true if standard_capture?(x,y)
     return false
   end
 
-  # returns true if unfriendly pawn on square
-  def unfriendly_pawn?(x,y)
+  # returns true if unfriendly pawn moved 2 squares on its first move and now can be captured en passant
+  def can_be_captured?(x,y)
     piece = self.game.find_piece(x,y)
-    return (piece.type == "Pawn") && ((piece.white? != white?) || (piece.black? != black?))
-  end
-
-  # returns true if pawn can execute en passant capture
-  def en_passant?(x,y)
-    if black?
-      unfriendly_y = y - 1
-      return unfriendly_pawn?(x,unfriendly_y)
-    end
-    if white?
-      unfriendly_y = y + 1
-      return unfriendly_pawn?(x,unfriendly_y)
-    end
+    return (piece.type == "Pawn") && (piece.white? != white?) && (piece.move_number == 1) && (piece.pawn_two_squares == true)
   end
 
   # executes en_passant capture
   def en_passant!(x,y)
-    if black? && en_passant?(x,y)
+    if black?
       unfriendly_y = y - 1
-      self.game.find_piece(x,unfriendly_y).captured!
+      if can_be_captured?(x,unfriendly_y)
+        self.game.find_piece(x,unfriendly_y).captured!
+      end
     end
-    if white? && en_passant?(x,y)
+    if white?
       unfriendly_y = y + 1
-      self.game.find_piece(x,unfriendly_y).captured!
+      if can_be_captured?(x,unfriendly_y)
+        self.game.find_piece(x,unfriendly_y).captured!
+      end
     end
     update_attributes(x_position: x, y_position: y)
     self.game.move_counter += 1
