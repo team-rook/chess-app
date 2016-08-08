@@ -49,8 +49,21 @@ class Pawn < Piece
     return false
   end
 
-  # moves piece to the destination square
   def pawn_move_to!(x,y)
+    if valid_move?(x,y) && two_squares?(x,y)
+      update_attributes(x_position: x, y_position: y, pawn_two_squares: true)
+      self.move_number += 1
+      self.game.move_counter += 1
+    end
+    if valid_move?(x,y) && standard_move?(x,y)
+      update_attributes(x_position: x, y_position: y)
+      self.move_number += 1
+      self.game.move_counter += 1
+    end
+  end
+
+  # moves piece to the destination square
+  def pawn_standard_capture!(x,y)
     if valid_move?(x,y) && standard_capture?(x,y)
       if self.game.square_occupied?(x,y)
         self.game.find_piece(x,y).captured!
