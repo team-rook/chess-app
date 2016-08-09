@@ -1,12 +1,19 @@
 h1, h2, h3, h4, h5, h6, .navbar {
-    margin: 0;
-    padding: 0;
-    color: white;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
 
+h4 {
+  margin-bottom: 2px;
 }
 
 body {
 	background: url('green_cup.png');
+}
+
+.title {
+  align: center;
 }
 
 .navbar.navbar {
@@ -16,8 +23,6 @@ body {
 	color: #FAC739;
 	margin-bottom:0;
 }
-
-
 
 .btn {
   border-radius:0;
@@ -48,27 +53,20 @@ body {
 table {
   margin: 0 auto;
   border-collapse: collapse;
-  background: brown;
+  background: url('lightpaperfibers.png');
+  border: 2px solid black;
 }
 
-  td {
-  width: 80px; 
+td {
+  width: 80px;
   height: 80px;
-}
-
- tr:nth-child(odd) td:nth-child(even), 
- tr:nth-child(even) td:nth-child(odd) {
-  background: brown;
+  align: center;
 }
 
 .frosty {
-    background:rgba(0,0,0, 0.5);
-    color:white;
-    padding: 20px;
-}
-
-h4 {
-  margin-bottom: 2px;
+  background:rgba(0,0,0, 0.5);
+  color:white;
+  padding: 20px;
 }
 
 .join_button {
@@ -76,7 +74,16 @@ h4 {
   margin-bottom: 20px;
 }
 
-  tr:nth-child(odd) td:nth-child(even),
-  tr:nth-child(even) td:nth-child(odd) {
-    background: black;
-  }
+tr:nth-child(odd) td:nth-child(even),
+tr:nth-child(even) td:nth-child(odd) {
+  background: rgba(0,0,0, 0.5);
+}
+
+.chessboard {
+  font-size: 45px;
+  text-align: center;
+}
+
+.alert {
+  border-radius: 0;
+}

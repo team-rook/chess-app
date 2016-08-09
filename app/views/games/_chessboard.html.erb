@@ -1,42 +1,27 @@
 <script>
-
- $(function(){
-
-  $(".piece").draggable({
-    update: function(event, ui){
-
-
-    }
-  })
- });
-
+  $(function(){
+    $(".piece").draggable({
+      update: function(event, ui){
+      }
+    })
+  });
 </script>
 
- <div class="chessboard">
-   <table>
-   
-   <% (0..7).each do |row| %>
-    <tr class="row">
-    
-   <% (0..7).each do |column| %>
-    <td class="column" data-x-position="<%=column%>" data-y-position="<%=row%>" >
-    
-   <% piece = @game.piece_data[column][row]%> 
-   
-
-    <% if piece.present? %>
-    
-   <div class="piece">  <%= piece.unicode_symbol.html_safe%>
-   </div>
-    </td>
-  
+<div class="chessboard">
+  <table>
+    <% (0..7).each do |row| %>
+      <tr class="row">
+        <% (0..7).each do |column| %>
+          <td class="column" data-x-position="<%=column%>" data-y-position="<%=row%>">
+          <% piece = @game.piece_data[column][row]%>
+          <% if piece.present? %>
+            <div class="piece">
+              <%= piece.unicode_symbol.html_safe%>
+            </div>
+          </td>
+          <% end %>
+        <% end %>
+      </tr>
     <% end %>
- 
-    <% end %>
-    </tr>
-  <% end %>
-
-   
-    
   </table>
-  </div>
+</div>
