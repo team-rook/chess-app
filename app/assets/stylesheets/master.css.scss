@@ -1,7 +1,7 @@
 h1, h2, h3, h4, h5, h6, .navbar {
-    margin: 0;
-    padding: 0;
-    color: white;
+  margin: 0;
+  padding: 0;
+  color: white;
 }
 
 h4 {
@@ -82,4 +82,8 @@ tr:nth-child(even) td:nth-child(odd) {
 .chessboard {
   font-size: 45px;
   text-align: center;
+}
+
+.alert {
+  border-radius: 0;
 }
