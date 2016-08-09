@@ -12,6 +12,10 @@ body {
 	background: url('green_cup.png');
 }
 
+.title {
+  align: center;
+}
+
 .navbar.navbar {
 	background: url('lightpaperfibers.png');
 	border-radius: 0;
@@ -49,12 +53,14 @@ body {
 table {
   margin: 0 auto;
   border-collapse: collapse;
-  background: brown;
+  background: url('lightpaperfibers.png');
+  border: 2px solid black;
 }
 
 td {
   width: 80px;
   height: 80px;
+  align: center;
 }
 
 .frosty {
@@ -70,5 +76,10 @@ td {
 
 tr:nth-child(odd) td:nth-child(even),
 tr:nth-child(even) td:nth-child(odd) {
-  background: black;
+  background: rgba(0,0,0, 0.5);
+}
+
+.chessboard {
+  font-size: 45px;
+  text-align: center;
 }

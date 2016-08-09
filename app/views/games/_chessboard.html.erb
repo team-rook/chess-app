@@ -1,14 +1,9 @@
 <script>
   $(function(){
     $(".piece").draggable({
-      create: function( event, ui ) {
-        containment: '.chessboard',
-        cursor: 'crosshair',
-        snap: '.chessboard__row__column',
-        snapMode: 'outer',
-        revert: 'invalid'
+      update: function(event, ui){
       }
-    });
+    })
   });
 </script>
 
