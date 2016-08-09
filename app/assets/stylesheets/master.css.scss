@@ -2,7 +2,10 @@ h1, h2, h3, h4, h5, h6, .navbar {
     margin: 0;
     padding: 0;
     color: white;
+}
 
+h4 {
+  margin-bottom: 2px;
 }
 
 body {
@@ -16,8 +19,6 @@ body {
 	color: #FAC739;
 	margin-bottom:0;
 }
-
-
 
 .btn {
   border-radius:0;
@@ -51,24 +52,15 @@ table {
   background: brown;
 }
 
-  td {
-  width: 80px; 
+td {
+  width: 80px;
   height: 80px;
 }
 
- tr:nth-child(odd) td:nth-child(even), 
- tr:nth-child(even) td:nth-child(odd) {
-  background: brown;
-}
-
 .frosty {
-    background:rgba(0,0,0, 0.5);
-    color:white;
-    padding: 20px;
-}
-
-h4 {
-  margin-bottom: 2px;
+  background:rgba(0,0,0, 0.5);
+  color:white;
+  padding: 20px;
 }
 
 .join_button {
@@ -76,7 +68,7 @@ h4 {
   margin-bottom: 20px;
 }
 
-  tr:nth-child(odd) td:nth-child(even),
-  tr:nth-child(even) td:nth-child(odd) {
-    background: black;
-  }
+tr:nth-child(odd) td:nth-child(even),
+tr:nth-child(even) td:nth-child(odd) {
+  background: black;
+}
