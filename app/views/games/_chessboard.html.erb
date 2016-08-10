@@ -1,15 +1,20 @@
 <script>
 $(function() {
-  $('.piece').draggable({ containment: "table", revert: 'invalid' });
+  $('.piece').draggable({
+    cursor: "crosshair",
+    containment: "table",
+    revert: 'invalid'
+  });
 
   $('td').droppable({
-    drop: function(ev, ui) {
-      var dropped = ui.draggable;
-      var droppedOn = $(this);
-      $(dropped).detach().css({top: 0, left: 0}).appendTo(droppedOn);
+    drop: function(event, ui) {
+      var piece = ui.draggable;
+      var square = $(this);
+      $(piece).detach().css({top: 0, left: 0}).appendTo(square)
     }
   });
 });
+
 </script>
 
 <div class="chessboard">
