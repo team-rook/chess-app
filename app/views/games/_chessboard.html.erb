@@ -1,16 +1,20 @@
 <script>
 $(function() {
   $('.piece').draggable({
-    cursor: "crosshair",
-    containment: "table",
+    snap: '.square',
+    snapMode: 'outer',
+    snapTolerance: 40,
+    opacity: 0.75,
+    cursor: 'crosshair',
+    containment: 'table',
     revert: 'invalid'
   });
 
-  $('td').droppable({
+  $('.square').droppable({
+    accept: '.piece',
     drop: function(event, ui) {
-      var piece = ui.draggable;
-      var square = $(this);
-      $(piece).detach().css({top: 0, left: 0}).appendTo(square)
+      var piece = ui.draggable
+      var destination_square = $(this);
     }
   });
 });
@@ -22,7 +26,7 @@ $(function() {
     <% (0..7).each do |row| %>
       <tr class="row">
         <% (0..7).each do |column| %>
-          <td class="column" data-x-position="<%=column%>" data-y-position="<%=row%>">
+          <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
             <div class="piece">
