@@ -1,11 +1,8 @@
 class PiecesController < ApplicationController
 	def update
     @piece = Piece.find(params[:id])
+    @game = @piece.game
     @piece.move_to!(piece_params)
-
-    render json: {
-      update_url: game_path(@game)
-    }
 	end
 
 	private
