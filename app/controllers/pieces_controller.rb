@@ -1,8 +1,15 @@
 class PiecesController < ApplicationController
 	def update
-    @piece = Piece.find(params[:id])
-    @game = @piece.game
-    @piece.move_to!(piece_params)
+	  @piece = Piece.find(params[:id])
+	  @game = @piece.game
+		if @piece.user_id == current_user.id
+			x = params[:x_position].to_i
+			y = params[:y_position].to_i
+	  	@piece.move_to!(x,y)
+			render json: 'success'
+		else
+			render json: 'failure'
+		end
 	end
 
 	private

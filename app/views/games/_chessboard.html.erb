@@ -1,41 +1,40 @@
 <script>
-$(document).ready(function () {
-  $(function() {
-    $('.piece').draggable({
-      snap: '.square',
-      snapMode: 'outer',
-      snapTolerance: 40,
-      opacity: 0.75,
-      cursor: 'crosshair',
-      containment: 'table',
-      revert: 'invalid'
-    });
+$(function() {
+  $('.piece').draggable({
+    snap: '.square',
+    snapMode: 'outer',
+    snapTolerance: 40,
+    opacity: 0.75,
+    cursor: 'crosshair',
+    containment: 'table',
+    revert: 'invalid'
+  });
 
-    $('.square').droppable({
-      accept: '.piece',
-      drop: function(event, ui) {
-        var piece = ui.draggable
-        var destination_square = $(this);
+  $('.square').droppable({
+    accept: '.piece',
+    drop: function(event, ui) {
+      var piece = ui.draggable
+      var destination_square = $(this);
 
-        var update_piece = {
-          id: piece.data('piece-id'),
-          x_position: destination_square.data('data-x-position'),
-          y_position: destination_square.data('data-y-position')
-        }
-
-        $.ajax({
-          type: 'PATCH',
-          url: '/pieces/' + piece.id,
-          dataType: 'json',
-          data: {
-            piece: update_piece
-          },
-          success: function(data) {
-            $(location).attr('href', data.update_url);
-          }
-        });
+      var update_piece = {
+        id: piece.data('data-piece-id'),
+        x_position: destination_square.data('data-x-position'),
+        y_position: destination_square.data('data-y-position')
       }
-    });
+
+      $.ajax({
+        type: 'PATCH',
+        url: '/pieces/' + piece.id,
+        beforeSend: $.rails.CSRFProtection,
+        dataType: 'json',
+        data: {
+          piece: update_piece
+        },
+        success: function(data) {
+          $(location).attr('href', data.update_url);
+        }
+      });
+    }
   });
 });
 
@@ -49,7 +48,7 @@ $(document).ready(function () {
           <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
-            <div class="piece">
+            <div class="piece" data-piece-id="<%=piece%>">
               <%= piece.unicode_symbol.html_safe%>
             </div>
           </td>
