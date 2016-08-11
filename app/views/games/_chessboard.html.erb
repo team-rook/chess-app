@@ -17,9 +17,9 @@ $(function() {
       var destination_square = $(this);
 
       var update_piece = {
-        id: piece.data('data-piece-id'),
-        x_position: destination_square.data('data-x-position'),
-        y_position: destination_square.data('data-y-position')
+        id: piece.data('piece-id'),
+        x_position: destination_square.data('x-position'),
+        y_position: destination_square.data('y-position')
       }
 
       $.ajax({
@@ -45,10 +45,10 @@ $(function() {
     <% (0..7).each do |row| %>
       <tr class="row">
         <% (0..7).each do |column| %>
-          <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
+          <td class="square" x-position="<%=column%>" y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
-            <div class="piece" data-piece-id="<%=piece.id%>">
+            <div class="piece" piece-id="<%=piece.id%>">
               <%= piece.unicode_symbol.html_safe%>
             </div>
           </td>
