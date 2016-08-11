@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBR_GmkJi-lcv_Gsxp54JAEQdVNwwLrwlQ",
+    authDomain: "team-rook-chess-app.firebaseapp.com",
+    databaseURL: "https://team-rook-chess-app.firebaseio.com",
+  };
+  firebase.initializeApp(config);
+</script>
+
   <title>The Rooks</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
