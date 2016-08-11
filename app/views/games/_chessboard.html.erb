@@ -48,7 +48,7 @@ $(function() {
           <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
-            <div class="piece" data-piece-id="<%=piece%>">
+            <div class="piece" data-piece-id="<%=piece.id%>">
               <%= piece.unicode_symbol.html_safe%>
             </div>
           </td>
