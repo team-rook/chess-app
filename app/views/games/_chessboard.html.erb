@@ -24,7 +24,7 @@ $(function() {
 
       $.ajax({
         type: 'PATCH',
-        url: '/pieces/' + piece.id,
+        url: '/pieces/' + update_piece.id,
         beforeSend: $.rails.CSRFProtection,
         dataType: 'json',
         data: {
