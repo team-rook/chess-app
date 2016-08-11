@@ -6,11 +6,8 @@ before_action :authenticate_user!, only: [:new, :join, :create]
   end
 
   def show
-    @game = Game.find(params[:id])
-    
+    @game = Game.find(params[:id])  
   end
-
- 
 
   def create
     @game = Game.create(game_params)
@@ -28,7 +25,7 @@ before_action :authenticate_user!, only: [:new, :join, :create]
    else
     flash[:alert] = "You've already joined the game"
     redirect_to game_path
-    
+
   end
   end
 

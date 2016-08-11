@@ -15,7 +15,24 @@ $(function() {
     drop: function(event, ui) {
       var piece = ui.draggable
       var destination_square = $(this);
-    }
+
+      var ajax_piece = {
+        id: piece.data('piece-id'),
+        x_position: destination_square.data('data-x-position'),
+        y_position: destination_square.data('data-y-position')
+      }
+      $.ajax({
+        type: 'PATCH',
+        url: '/pieces/' + piece.id,
+        dataType: 'json',
+        data: {
+          piece: piece
+        },
+        success: function(data) {
+          $(location).attr('href', data.update_url);
+        }
+      });
+    });
   });
 });
 

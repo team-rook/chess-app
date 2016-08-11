@@ -124,8 +124,9 @@ class Piece < ActiveRecord::Base
     updated_at == created_at
   end
 
-  # moves piece to the destination square
-  def move_to!(x,y)
+  def move_to!(params)
+    x = params[:x_position].to_i
+    y = params[:y_position].to_i
     if valid_move?(x,y)
       if self.game.square_occupied?(x,y)
         self.game.find_piece(x,y).captured!
