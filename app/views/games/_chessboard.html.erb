@@ -25,7 +25,7 @@ $(function() {
         url: '/pieces/' + update_piece.id,
         beforeSend: $.rails.CSRFProtection,
         dataType: 'json',
-        data: { piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position },
+        data: {piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position},
         success: function(data) {
           $(location).attr('href', data.update_url);
         }
@@ -44,7 +44,7 @@ $(function() {
           <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
-            <div class="piece" data-piece-id="<%=piece.id%>">
+            <div class="piece" data-piece-id="<%=piece.id%>" data-piece-id="<%=piece.id%>">
               <%= piece.unicode_symbol.html_safe%>
             </div>
           </td>
