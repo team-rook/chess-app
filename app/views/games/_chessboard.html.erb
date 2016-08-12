@@ -15,7 +15,6 @@ $(function() {
     drop: function(event, ui) {
       var piece = ui.draggable
       var destination_square = $(this);
-
       var update_piece = {
         id: piece.data('piece-id'),
         x_position: destination_square.data('x-position'),
