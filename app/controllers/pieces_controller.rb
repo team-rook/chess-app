@@ -1,4 +1,8 @@
 class PiecesController < ApplicationController
+	def show
+		@piece = Piece.find(params[:id])
+	end
+
 	def update
 	  @piece = Piece.find(params[:id])
 		x = params[:x_position].to_i
@@ -10,9 +14,13 @@ class PiecesController < ApplicationController
 
 		if @piece.user_id == current_user.id
 			if @piece.move_to!(x,y)
-				return render json: 'success'
+				return respond_to do |format|
+					format.html { render :show }
+					format.json { render json: @piece, status: :ok }
+				end
+			else
+				return render json: 'failure'
 			end
-			render json: 'failure'
 		end
 	end
 
