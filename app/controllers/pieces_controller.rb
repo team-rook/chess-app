@@ -5,13 +5,12 @@ class PiecesController < ApplicationController
 		y = params[:y_position].to_i
 	  @game = @piece.game
 
-		if @piece.user_id == @game.active_player.id
-			if @piece.valid_move?(x,y)
-				@piece.move_to!(x,y)
+		if @piece.user_id == current_user.id
+			if @piece.move_to!(x,y)
 				render json: 'success'
+			else
+				render json: 'failure'
 			end
-		else
-			render json: 'failure'
 		end
 	end
 
