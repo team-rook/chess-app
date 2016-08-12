@@ -5,14 +5,14 @@ class PiecesController < ApplicationController
 		y = params[:y_position].to_i
 
 		if @piece.user_id != current_user.id
-			return render text: 'not your turn', status: :unauthorized
+			return render json: 'failure'
 		end
 
 		if @piece.user_id == current_user.id
 			if @piece.move_to!(x,y)
 				return render json: 'success'
 			end
-		render json: 'failure'
+		return render json: 'failure'
 		end
 	end
 
