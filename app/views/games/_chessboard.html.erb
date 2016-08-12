@@ -11,7 +11,6 @@ $(function() {
   });
 
   $('.square').droppable({
-    accept: '.piece',
     drop: function(event, ui) {
       var piece = ui.draggable
       var destination_square = $(this);
@@ -28,6 +27,10 @@ $(function() {
         data: {piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position},
         success: function(data) {
           $(location).attr('href', data.update_url);
+        },
+        error: function(data) {
+          $(piece).css({'left': 0, 'top': 0});
+          alert('Invalid Move');
         }
       });
     }

@@ -12,7 +12,7 @@ class PiecesController < ApplicationController
 			if @piece.move_to!(x,y)
 				return render json: 'success'
 			end
-		return render json: 'failure'
+			render json: 'failure'
 		end
 	end
 

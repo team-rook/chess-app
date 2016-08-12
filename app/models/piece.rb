@@ -125,8 +125,11 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x,y)
+    puts "IN MOVE TOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     if valid_move?(x,y)
+      "IN VALID MOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
       if self.game.square_occupied?(x,y)
+        "IN SQUARE OCCUPIED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         self.game.find_piece(x,y).captured!
       end
       update_attributes(x_position: x, y_position: y)
