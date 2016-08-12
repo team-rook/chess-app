@@ -3,15 +3,12 @@ class PiecesController < ApplicationController
 	  @piece = Piece.find(params[:id])
 		x = params[:x_position].to_i
 		y = params[:y_position].to_i
-	  @game = @piece.game
-
 		if @piece.user_id == current_user.id
 			if @piece.move_to!(x,y)
-				render json: 'success'
-			else
-				render json: 'failure'
+				return render json: 'success'
 			end
 		end
+		render json: 'failure'
 	end
 
 	private

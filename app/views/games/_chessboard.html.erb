@@ -20,15 +20,12 @@ $(function() {
         x_position: destination_square.data('x-position'),
         y_position: destination_square.data('y-position')
       }
-
       $.ajax({
         type: 'PATCH',
         url: '/pieces/' + update_piece.id,
         beforeSend: $.rails.CSRFProtection,
         dataType: 'json',
-        data: {
-          piece: update_piece
-        },
+        data: { piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position },
         success: function(data) {
           $(location).attr('href', data.update_url);
         }
@@ -44,10 +41,10 @@ $(function() {
     <% (0..7).each do |row| %>
       <tr class="row">
         <% (0..7).each do |column| %>
-          <td class="square" x-position="<%=column%>" y-position="<%=row%>">
+          <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
-            <div class="piece" piece-id="<%=piece.id%>">
+            <div class="piece" data-piece-id="<%=piece.id%>">
               <%= piece.unicode_symbol.html_safe%>
             </div>
           </td>
