@@ -8,10 +8,23 @@ h4 {
   margin-bottom: 2px;
 }
 
+a {
+  color: white;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 body {
 	background: url('green_cup.png');
   margin: 0;
   padding: 0;
+}
+
+.black-title {
+  color: black;
 }
 
 .title {
@@ -65,9 +78,13 @@ td {
 }
 
 .frosty {
-  background:rgba(0,0,0, 0.5);
+  background:rgba(0,0,0, 0.8);
   color:white;
   padding: 20px;
+}
+
+.each-game {
+  padding-bottom: 30px;
 }
 
 .join_button {
