@@ -25,7 +25,7 @@ class PiecesController < ApplicationController
 					end
 				end
 			else
-				return render json: 'failure'
+				render json: 'failure'
 			end
 		end
 	end
