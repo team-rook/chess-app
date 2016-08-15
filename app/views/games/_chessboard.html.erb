@@ -17,7 +17,7 @@ $(function() {
       var update_piece = {
         id: piece.data('piece-id'),
         x_position: destination_square.data('x-position'),
-        y_position: destination_square.data('y-position')
+        y_position: destination_square.data('y-position'),
       }
       $.ajax({
         type: 'PATCH',
@@ -30,15 +30,13 @@ $(function() {
         },
         error: function(data) {
           $(piece).css({'left': 0, 'top': 0});
-          alert('Invalid Move');
+          alert("Invalid Move");
         }
       });
     }
   });
 });
-
 </script>
-
 <div class="chessboard">
   <table>
     <% (0..7).each do |row| %>
@@ -47,7 +45,7 @@ $(function() {
           <td class="square" data-x-position="<%=column%>" data-y-position="<%=row%>">
           <% piece = @game.piece_data[column][row]%>
           <% if piece.present? %>
-            <div class="piece" data-piece-id="<%=piece.id%>" data-piece-id="<%=piece.id%>">
+            <div class="piece" data-piece-id="<%=piece.id%>" data-captured="<%=piece.captured%>">
               <%= piece.unicode_symbol.html_safe%>
             </div>
           </td>
