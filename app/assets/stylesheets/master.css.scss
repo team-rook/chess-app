@@ -1,7 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+
 h1, h2, h3, h4, h5, h6, .navbar {
-    margin: 0;
-    padding: 0;
-    color: white;
+  font-family: 'Droid Serif', serif;
+  margin: 0;
+  padding: 0;
+  color: white;
 }
 
 h4 {
@@ -9,25 +12,30 @@ h4 {
 }
 
 a {
+  font-family: 'Droid Serif', serif;
   color: white;
 }
 
 a:hover {
+  font-family: 'Droid Serif', serif;
   color: white;
   text-decoration: none;
 }
 
 body {
+  font-family: 'Droid Serif', serif;
 	background: url('green_cup.png');
   margin: 0;
   padding: 0;
 }
 
 .black-title {
+  font-family: 'Droid Serif', serif;
   color: black;
 }
 
 .title {
+  font-family: 'Droid Serif', serif;
   align: center;
 }
 
