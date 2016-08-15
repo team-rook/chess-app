@@ -14,9 +14,15 @@ class PiecesController < ApplicationController
 
 		if @piece.user_id == current_user.id
 			if @piece.move_to!(x,y)
-				return respond_to do |format|
+				respond_to do |format|
 					format.html { render :show }
 					format.json { render json: @piece, status: :ok }
+				end
+				captured = params[:captured]
+				if captured
+					respond_to do |format|
+						format.html { render :destroy }
+					end
 				end
 			else
 				return render json: 'failure'
