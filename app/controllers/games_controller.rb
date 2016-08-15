@@ -23,8 +23,8 @@ before_action :authenticate_user!, only: [:new, :join, :create]
       flash[:notice]="You've joined as the Black Player!"
       redirect_to game_path(@game)
    else
-    flash[:alert] = "You've already joined the game"
-    redirect_to game_path
+      flash[:alert] = "You've already joined the game"
+      redirect_to game_path
     end
   end
 

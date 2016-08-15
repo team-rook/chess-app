@@ -18,12 +18,6 @@ class PiecesController < ApplicationController
 					format.html { render :show }
 					format.json { render json: @piece, status: :ok }
 				end
-				captured = params[:captured]
-				if captured
-					respond_to do |format|
-						format.html { render :destroy }
-					end
-				end
 			else
 				render json: 'failure'
 			end
