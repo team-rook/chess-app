@@ -71,17 +71,19 @@ class Game < ActiveRecord::Base
   end
 
   # returns true if current player is facing a check state
-  def check?
-    current_player = self.active_player.id
-    current_king = King.active.where(user_id: current_player).first
-    king_x = current_king.x_position
-    king_y = current_king.y_position
+  def check?(x = 9, y = 9)
+    if x == 9 && y == 9
+      current_player = self.active_player.id
+      current_king = King.active.where(user_id: current_player).first
+      x = current_king.x_position
+      y = current_king.y_position
+    end
 
     pieces.active.each do | piece |
       # only check for enemy pieces
       if piece.user_id != current_player
         # check if enemy pieces threaten the kings location
-        if piece.valid_move?(king_x, king_y)
+        if piece.valid_move?(x, y)
           return true # definitively return true
         end
       end

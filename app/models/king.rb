@@ -3,6 +3,7 @@ class King < Piece
   def valid_move?(x,y)
     # checks critera for valid_move? that apply to all pieces and returns false if fails
     return false unless super(x,y)
+    return false if (self.game.check?(x,y) == false)
     x_diff = x_diff(x)
     y_diff = y_diff(y)
     # returns true if moving only 1 square any direction
@@ -30,7 +31,7 @@ class King < Piece
   def castle_queenside?(x,y)
     x == 2 &&  y == y_position && castle_rook_queenside && \
     castle_rook_queenside.never_moved? && \
-    castle_rook_queenside.path_blocked?(4, y_position) == false 
+    castle_rook_queenside.path_blocked?(4, y_position) == false
   end
 
   #determines if there is a rook to castle with kingside

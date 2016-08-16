@@ -77,7 +77,7 @@ RSpec.describe King, type: :model do
       king = King.create(x_position: 4, y_position: 0, game_id: game.id, user_id: 1)
       rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
       expect(king.valid_move?(2,0)).to eq true
-    end    
+    end
 
     it 'should return false if attempting to castle kingside and bishop present' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
@@ -117,7 +117,7 @@ RSpec.describe King, type: :model do
       rook = Rook.create(x_position: 0, y_position: 0, game_id: game.id, user_id: 1)
       queen = Queen.create(x_position: 3, y_position:0, game_id: game.id, user_id: 1)
       expect(king.valid_move?(2,0)).to eq false
-    end    
+    end
 
     it 'should return false if  attempting to castle kingside and 7 rook has been moved' do
       game = Game.create(white_user_id: 0, black_user_id: 1)
@@ -234,6 +234,16 @@ RSpec.describe King, type: :model do
       game = Game.create(white_user_id: 0, black_user_id: 1)
       king = King.create(x_position: 0, y_position: 2, game_id: game.id)
       expect(king.valid_move?(-1,8)).to eq false
+    end
+
+    it 'should return false if move would put king in check' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id, move_counter: 1)
+      king = King.create(x_position: 1, y_position: 7, user_id: black_user.id, game_id: game.id)
+      King.create(x_position: 0, y_position: 5, user_id: white_user.id, game_id: game.id)
+      Rook.create(x_position: 2, y_position: 7, user_id: white_user.id, game_id: game.id)
+      expect(king.valid_move?(0,7)).to eq false
     end
   end
 end
