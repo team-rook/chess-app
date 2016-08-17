@@ -11,16 +11,6 @@ h4 {
   margin-bottom: 2px;
 }
 
-a {
-  font-family: 'Droid Serif', serif;
-  color: white;
-}
-
-a:hover {
-  color: white;
-  text-decoration: none;
-}
-
 body {
   font-family: 'Droid Serif', serif;
 	background: url('green_cup.png');
@@ -48,6 +38,16 @@ body {
 
 .btn {
   border-radius:0;
+}
+
+.btn a {
+  font-family: 'Droid Serif', serif;
+  color: white;
+}
+
+.btn a:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .hero {
