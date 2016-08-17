@@ -65,7 +65,7 @@ class Pawn < Piece
   # returns true if unfriendly pawn moved 2 squares on its first move and now can be captured en passant
   def can_be_captured_en_passant?(x,y)
     return false unless piece = self.game.find_piece(x,y)
-    (piece.type == "Pawn") && (piece.white? != white?) && (piece.just_moved_two_spaces?)
+    return (piece.type == "Pawn") && (piece.white? != white?) && (piece.just_moved_two_spaces?)
   end
 
   def just_moved_two_spaces?
