@@ -58,4 +58,58 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(4,3)).to be false
     end
   end
+
+  describe 'pawn_standard_capture!' do
+    it 'should return true if white pawn making standard capture move' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      white_pawn = Pawn.create(x_position: 0, y_position: 4, game_id: game.id, user_id: white_user.id)
+      black_pawn = Pawn.create(x_position: 1, y_position: 3, game_id: game.id, user_id: black_user.id)
+      white_pawn.pawn_standard_capture!(1,3)
+      black_pawn.reload
+      expect(white_pawn.x_position).to eq 1
+      expect(white_pawn.y_position).to eq 3
+      expect(black_pawn.captured).to eq true
+    end
+
+    it 'should return true if black pawn making standard capture move' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      white_pawn = Pawn.create(x_position: 0, y_position: 4, game_id: game.id, user_id: white_user.id)
+      black_pawn = Pawn.create(x_position: 1, y_position: 3, game_id: game.id, user_id: black_user.id)
+      black_pawn.pawn_standard_capture!(0,4)
+      white_pawn.reload
+      expect(black_pawn.x_position).to eq 0
+      expect(black_pawn.y_position).to eq 4
+      expect(white_pawn.captured).to eq true
+    end
+
+    it 'should return true if white pawn capturing en passant' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      white_pawn = Pawn.create(x_position: 1, y_position: 3, game_id: game.id, user_id: white_user.id)
+      black_pawn = Pawn.create(move_number: 1, pawn_two_squares: true, x_position: 0, y_position: 3, game_id: game.id, user_id: black_user.id)
+      white_pawn.en_passant!(0,2)
+      black_pawn.reload
+      expect(white_pawn.x_position).to eq 0
+      expect(white_pawn.y_position).to eq 2
+      expect(black_pawn.captured).to eq true
+    end
+
+    it 'should return true if black pawn capturing en passant' do
+      white_user = FactoryGirl.create(:user)
+      black_user = FactoryGirl.create(:user)
+      game = Game.create(white_user_id: white_user.id, black_user_id: black_user.id)
+      white_pawn = Pawn.create(move_number: 1, pawn_two_squares: true, x_position: 0, y_position: 4, game_id: game.id, user_id: white_user.id)
+      black_pawn = Pawn.create(x_position: 1, y_position: 4, game_id: game.id, user_id: black_user.id)
+      black_pawn.en_passant!(0,5)
+      white_pawn.reload
+      expect(black_pawn.x_position).to eq 0
+      expect(black_pawn.y_position).to eq 5
+      expect(white_pawn.captured).to eq true
+    end
+  end
 end
