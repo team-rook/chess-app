@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20160817175535) do
     t.integer  "black_user_id"
     t.string   "game_name"
     t.integer  "move_counter",  default: 0
-    t.boolean  "winner"
   end
 
   create_table "pieces", force: true do |t|
@@ -56,7 +55,6 @@ ActiveRecord::Schema.define(version: 20160817175535) do
     t.string   "uid"
     t.string   "name"
     t.string   "image"
-    t.integer  "win_counter",            default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
