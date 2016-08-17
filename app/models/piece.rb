@@ -125,25 +125,15 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x,y)
-    if valid_move?(x,y) && type != "Pawn"
-      if self.game.square_occupied?(x,y)
-        self.game.find_piece(x,y).captured!
-      end
-      update_attributes(x_position: x, y_position: y)
-      self.game.move_counter += 1
-    end
+    return false unless valid_move?(x,y)
+    capture_piece_at(x,y)
+    update_attributes(x_position: x, y_position: y, move_number: move_number + 1)
+    game.update_attributes(move_counter: game.move_counter + 1)
+  end
 
-    if type == "Pawn"
-      if vertical?(x,y)
-        pawn_move_to!(x,y)
-      end
-      if diagonal?(x,y)
-        if can_be_captured_en_passant?(x,y)
-          en_passant!(x,y)
-        else
-          pawn_standard_capture!(x,y)
-        end
-      end
-    end
+  def capture_piece_at(x,y)
+    return false unless game.square_occupied?(x,y)
+    game.find_piece(x,y).captured!
+    true
   end
 end

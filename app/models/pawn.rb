@@ -25,77 +25,51 @@ class Pawn < Piece
   end
 
   # returns true if attempting capture move (1 square diagonal)
-  def standard_capture?(x,y)
-    x_diff = x_diff(x)
-    y_diff = y_diff(y)
-    # returns true if moving only 1 square diagonally
-    if (x_diff <= 1) && (y_diff <= 1)
-      return true
-    end
-    return false
+  def pawn_diagonal?(x,y)
+    diagonal?(x, y) && x_diff(x) == 1
   end
 
   def valid_move?(x,y)
     return false unless super(x,y)
     return false if path_blocked?(x,y)
+
     # pawns cannot move backwards
     return false if white? && south?(y)
     return false if black? && north?(y)
+
     # each pawn can move forward 1 or 2 spaces for its first move only
-    # otherwise move 1 space forward
-    return true if standard_move?(x,y) || two_squares?(x,y)
-    # pawns capture one square diagonally
-    return true if standard_capture?(x,y)
-    return false
+    # otherwise move 1 space forward or pawns capture one square diagonally
+    standard_move?(x,y) ||
+      two_squares?(x,y) ||
+      (pawn_diagonal?(x,y) && capture_valid?(x,y))
   end
 
-  def pawn_move_to!(x,y)
-    if valid_move?(x,y) && two_squares?(x,y)
-      update_attributes(x_position: x, y_position: y, pawn_two_squares: true)
-      self.move_number += 1
-      self.game.move_counter += 1
+  def capture_piece_at(x,y)
+    if can_be_captured_en_passant?(x,unfriendly_y(y))
+      game.find_piece(x,unfriendly_y(y)).captured!
+    else
+      game.find_piece(x,y).captured!
     end
-    if valid_move?(x,y) && standard_move?(x,y)
-      update_attributes(x_position: x, y_position: y)
-      self.move_number += 1
-      self.game.move_counter += 1
-    end
+
+    true
   end
 
-  # moves piece to the destination square
-  def pawn_standard_capture!(x,y)
-    if valid_move?(x,y) && standard_capture?(x,y)
-      if self.game.square_occupied?(x,y)
-        self.game.find_piece(x,y).captured!
-      end
-      update_attributes(x_position: x, y_position: y)
-      self.move_number += 1
-      self.game.move_counter += 1
-    end
+  def unfriendly_y(y)
+    y + (black? ? -1 : 1)
+  end
+
+  def capture_valid?(x,y)
+    game.square_occupied?(x,y) || can_be_captured_en_passant?(x,unfriendly_y(y))
   end
 
   # returns true if unfriendly pawn moved 2 squares on its first move and now can be captured en passant
   def can_be_captured_en_passant?(x,y)
-    piece = self.game.find_piece(x,y)
-    return (piece.type == "Pawn") && (piece.white? != white?) && (piece.move_number == 1) && (piece.pawn_two_squares == true)
+    return false unless piece = self.game.find_piece(x,y)
+    return (piece.type == "Pawn") && (piece.white? != white?) && (piece.just_moved_two_spaces?)
   end
 
-  # executes en_passant capture
-  def en_passant!(x,y)
-    if black?
-      unfriendly_y = y - 1
-      if can_be_captured_en_passant?(x,unfriendly_y)
-        self.game.find_piece(x,unfriendly_y).captured!
-      end
-    end
-    if white?
-      unfriendly_y = y + 1
-      if can_be_captured_en_passant?(x,unfriendly_y)
-        self.game.find_piece(x,unfriendly_y).captured!
-      end
-    end
-    update_attributes(x_position: x, y_position: y)
-    self.game.move_counter += 1
+  def just_moved_two_spaces?
+    move_number == 1 && y_position == (black? ? 3 : 4)
   end
 
   def unicode_symbol
