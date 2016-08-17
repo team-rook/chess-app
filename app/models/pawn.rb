@@ -46,6 +46,7 @@ class Pawn < Piece
 
   def capture_piece_at(x,y)
     if can_be_captured_en_passant?(x,unfriendly_y(y))
+      return false unless piece = self.game.find_piece(x,unfriendly_y(y))
       self.game.find_piece(x,unfriendly_y(y)).captured!
     else
       return false unless piece = self.game.find_piece(x,y)
