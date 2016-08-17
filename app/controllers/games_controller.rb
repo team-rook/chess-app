@@ -1,21 +1,18 @@
 class GamesController < ApplicationController
 before_action :authenticate_user!, only: [:new, :join, :create]
-
   def new
     @game = Game.new
   end
 
   def show
     @game = Game.find(params[:id])
-    
   end
-
- 
 
   def create
     @game = Game.create(game_params)
     @game.white_user = current_user
     @game.save
+    flash[:alert]="Waiting for another player to join!"
     redirect_to game_path(@game)
   end
 
@@ -26,10 +23,9 @@ before_action :authenticate_user!, only: [:new, :join, :create]
       flash[:notice]="You've joined as the Black Player!"
       redirect_to game_path(@game)
    else
-    flash[:alert] = "You've already joined the game"
-    redirect_to game_path
-    
-  end
+      flash[:alert] = "You've already joined the game"
+      redirect_to game_path
+    end
   end
 
   private

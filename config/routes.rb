@@ -1,5 +1,4 @@
 Chessapp::Application.routes.draw do
-
   devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
   root 'static_pages#index'
 
@@ -7,7 +6,8 @@ Chessapp::Application.routes.draw do
     patch 'join', on: :member
   end
 
-  
+  resources :pieces, only: [:show, :update]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,12 +1,42 @@
-h1, h2, h3, h4, h5, h6, .navbar {
-    margin: 0;
-    padding: 0;
-    color: white;
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
 
+h1, h2, h3, h4, h5, h6, .navbar {
+  font-family: 'Droid Serif', serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+h4 {
+  margin-bottom: 2px;
+}
+
+a {
+  font-family: 'Droid Serif', serif;
+  color: white;
+}
+
+a:hover {
+  font-family: 'Droid Serif', serif;
+  color: white;
+  text-decoration: none;
 }
 
 body {
+  font-family: 'Droid Serif', serif;
 	background: url('green_cup.png');
+  margin: 0;
+  padding: 0;
+}
+
+.black-title {
+  font-family: 'Droid Serif', serif;
+  color: black;
+}
+
+.title {
+  font-family: 'Droid Serif', serif;
+  align: center;
 }
 
 .navbar.navbar {
@@ -16,8 +46,6 @@ body {
 	color: #FAC739;
 	margin-bottom:0;
 }
-
-
 
 .btn {
   border-radius:0;
@@ -48,27 +76,23 @@ body {
 table {
   margin: 0 auto;
   border-collapse: collapse;
-  background: brown;
+  background: url('lightpaperfibers.png');
+  border: 2px solid black;
 }
 
-  td {
-  width: 80px; 
+td {
+  width: 80px;
   height: 80px;
 }
 
- tr:nth-child(odd) td:nth-child(even), 
- tr:nth-child(even) td:nth-child(odd) {
-  background: brown;
-}
-
 .frosty {
-    background:rgba(0,0,0, 0.5);
-    color:white;
-    padding: 20px;
+  background:rgba(0,0,0, 0.8);
+  color:white;
+  padding: 20px;
 }
 
-h4 {
-  margin-bottom: 2px;
+.each-game {
+  padding-bottom: 30px;
 }
 
 .join_button {
@@ -76,7 +100,17 @@ h4 {
   margin-bottom: 20px;
 }
 
-  tr:nth-child(odd) td:nth-child(even),
-  tr:nth-child(even) td:nth-child(odd) {
-    background: black;
-  }
+tr:nth-child(odd) td:nth-child(even),
+tr:nth-child(even) td:nth-child(odd) {
+  background: rgba(0,0,0, 0.5);
+}
+
+.chessboard {
+  font-size: 45px;
+  text-align: center;
+}
+
+.alert {
+  border-radius: 0;
+  margin: 0;
+ }
