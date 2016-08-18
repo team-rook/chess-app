@@ -1,5 +1,6 @@
 <script>
 $(function() {
+  var channel = pusher.subscribe(‘game_’ + game.id); // uuid or unique id or SHA id
   $('.piece').draggable({
     snap: '.square',
     snapMode: 'outer',
@@ -28,6 +29,9 @@ $(function() {
         success: function(data) {
           destination_square.empty();
           $(location).attr('href', data.update_url);
+          channel.trigger(‘piece-moved’, function(data) {
+             Return {piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position}
+          });
         },
         error: function(data) {
           $(piece).css({'left': 0, 'top': 0});
@@ -44,6 +48,7 @@ $(function() {
   channel.bind('update-piece', function(data) {
     location.reload(true);
   });
+
 });
 </script>
 <div class="chessboard">
