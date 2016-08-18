@@ -9,17 +9,17 @@ class PiecesController < ApplicationController
 		y = params[:y_position].to_i
 
 		if @piece.user_id != current_user.id
-			return render json: 'failure'
+			return render json: {success: false }
 		end
 
 		if @piece.user_id == current_user.id
 			if @piece.move_to!(x,y)
 				respond_to do |format|
 					format.html { render :show }
-					format.json { render json: @piece, status: :ok }
+					format.json { render json: { success: true, current_player: @piece.game.current_player == @piece.game.black_player ? 'black' : 'white' } @piece, status: :ok }
 				end
 			else
-				render json: 'failure'
+				render json: {success: false }
 			end
 		end
 	end

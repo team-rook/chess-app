@@ -1,6 +1,11 @@
-  <h3 class="alert alert-info text-center">
-    <%= "White Player's Turn" %>
-  </h3>
+<h3 class="text-center">
+  <% if @game.currently_black_turn? %>
+    Black Player's Turn
+  <% else %>
+  White Player's Turn
+  <% end %>
+</h3>
+
 <script>
 $(function() {
   $('.piece').draggable({
@@ -36,20 +41,14 @@ $(function() {
           $(piece).css({'left': 0, 'top': 0});
           alert("Invalid Move");
         }
+        if (data.success) {
+          if (data.current_player === 'black') {
+            h3Element.html('Black Player Turn');
+          } else {
+            h3Element.html('White Player Turn');
+          }
+        }
       });
-       ( function () {
-       $.get( '/pieces/' + update_piece.id,
-         dataType('json')).success(function(data){
-          var h3Element = $('h3');
-        console.log("goodbye");
-// if (data  = black)  {
-//    return
-//} else {
-// h3Element.html("Black Player Turn")
-//}
-     });
-    });
-    console.log("Hello");
     }
   });
 });

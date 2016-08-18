@@ -11,6 +11,10 @@ class Game < ActiveRecord::Base
     return black_user
   end
 
+  def currently_black_turn?
+    self.active_player == black_user
+  end
+
   def add_black_player(user)
     update(black_user: user)
     initialize_board!

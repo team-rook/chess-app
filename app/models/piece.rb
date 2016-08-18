@@ -125,10 +125,7 @@ class Piece < ActiveRecord::Base
   end
 
   def active_player
-    if self.game.move_counter % 2 == 0
-      return self.game.white_user
-    end
-    return self.game.black_user
+    game.active_player
   end
 
   def move_to!(x,y)
