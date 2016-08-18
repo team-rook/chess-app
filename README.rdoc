@@ -1,16 +1,14 @@
-== Team Rooks Chess Application
+##Team Rooks Chess Application
 
-This is Ruby on Rails chess application built as <a href="https://thefirehoseproject.com">The Firehose Project</a> capstone project.
+This is Ruby on Rails chess application built as [The Firehose Project](http://thefirehoseproject.com) capstone project.
 
 Team Rooks is composed of the following members:
 
-<ul>
-  <li><a href="https://github.com/kyidkim">Kimberly Vandegrift</a></li>
-  <li><a href="https://github.com/theberbie">Sara Ahbabou</a></li>
-  <li><a href="https://github.com/hathcode">Kevin Hathorn</a></li>
-  <li><a href="https://github.com/cbohara">Charlie O'Hara</a></li>
-</ul>
++ [Kimberly Vandegrift](https://github.com/kyidkim)
++ [Sara Ahbabou](https://github.com/theberbie)
++ [Kevin Hathorn](https://github.com/hathcode)
++ [Charlie O'Hara](https://github.com/cbohara)
 
-Team Rooks is led by the great <a href="https://github.com/jacobwgillespie">Jacob Gillespie</a>
+Team Rooks is led by the great [Jacob Gillespie](https://github.com/jacobwgillespie).
 
-Play live at <a href="https://team-rook.herokuapp.com/">https://team-rook.herokuapp.com/</a>.
+Visit SPRKY Chess live at [https://team-rook.herokuapp.com/](https://team-rook.herokuapp.com/)
