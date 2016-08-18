@@ -124,12 +124,20 @@ class Piece < ActiveRecord::Base
     updated_at == created_at
   end
 
+  def active_player
+    if self.game.move_counter % 2 == 0
+      return self.game.white_user
+    end
+    return self.game.black_user
+  end
+
   def move_to!(x,y)
-    return false unless valid_move?(x,y)
-    capture_piece_at(x,y)
+    return false unless valid_move?(x, y) && self.active_player.id == self.user_id
+    capture_piece_at(x, y)
     update_attributes(x_position: x, y_position: y, move_number: move_number + 1)
     game.update_attributes(move_counter: game.move_counter + 1)
   end
+
 
   def capture_piece_at(x,y)
     return false unless game.square_occupied?(x,y)

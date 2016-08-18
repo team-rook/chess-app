@@ -1,3 +1,6 @@
+  <h3 class="alert alert-info text-center">
+    <%= "White Player's Turn" %>
+  </h3>
 <script>
 $(function() {
   $('.piece').draggable({
@@ -34,6 +37,19 @@ $(function() {
           alert("Invalid Move");
         }
       });
+       ( function () {
+       $.get( '/pieces/' + update_piece.id,
+         dataType('json')).success(function(data){
+          var h3Element = $('h3');
+        console.log("goodbye");
+// if (data  = black)  {
+//    return
+//} else {
+// h3Element.html("Black Player Turn")
+//}
+     });
+    });
+    console.log("Hello");
     }
   });
 });
