@@ -1,6 +1,6 @@
+<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
 <script>
 $(function() {
-  var channel = pusher.subscribe(‘game_’ + game.id); // uuid or unique id or SHA id
   $('.piece').draggable({
     snap: '.square',
     snapMode: 'outer',
@@ -28,10 +28,7 @@ $(function() {
         data: {piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position},
         success: function(data) {
           destination_square.empty();
-          $(location).attr('href', data.update_url);
-          channel.trigger(‘piece-moved’, function(data) {
-             Return {piece_id: update_piece.id, x_position: update_piece.x_position, y_position: update_piece.y_position}
-          });
+          location.reload(true);
         },
         error: function(data) {
           $(piece).css({'left': 0, 'top': 0});
@@ -40,7 +37,7 @@ $(function() {
       });
     }
   });
-  var pusher = new Pusher('69b758b613152645a0ba', {
+  var pusher = new Pusher('20db8464ebd0391533d7', {
     encrypted: true
   });
   var gameId = $('.pusherInfo').data('pusherinfo');
@@ -48,7 +45,6 @@ $(function() {
   channel.bind('update-piece', function(data) {
     location.reload(true);
   });
-
 });
 </script>
 <div class="chessboard">
