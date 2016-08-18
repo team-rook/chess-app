@@ -52,7 +52,7 @@ class Pawn < Piece
       return false unless piece = self.game.find_piece(x,y)
       self.game.find_piece(x,y).captured!
     end
-    true
+    return true
   end
 
   def unfriendly_y(y)
