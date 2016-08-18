@@ -31,6 +31,6 @@ before_action :authenticate_user!, only: [:new, :join, :create]
   private
 
   def game_params
-    params.require(:game).permit(:game_name, :white_user_id, :black_user_id)
+    params.require(:game).permit(:game_name, :white_user_id, :black_user_id, :move_counter)
   end
 end
