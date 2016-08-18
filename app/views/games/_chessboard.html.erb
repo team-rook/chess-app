@@ -37,7 +37,7 @@ $(function() {
       });
     }
   });
-  var pusher = new Pusher('20db8464ebd0391533d7', {
+  var pusher = new Pusher('<%= Pusher.key %>', {
     encrypted: true
   });
   var gameId = $('.pusherInfo').data('pusherinfo');

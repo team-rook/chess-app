@@ -1,7 +1,7 @@
 require 'pusher'
 
-Pusher.app_id = '235077'
-Pusher.key = '20db8464ebd0391533d7'
-Pusher.secret = '760a5e38b606ed70046e'
+Pusher.app_id = '239074'
+Pusher.key = 'cb977b7b2193b12e83c8'
+Pusher.secret = '35ade3140bf3437629ee'
 Pusher.logger = Rails.logger
 Pusher.encrypted = true

@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'pusher'
+
 # Use Twitter Bootstrap for styles
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
