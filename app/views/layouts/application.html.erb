@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Pusher Test</title>
+  <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('20db8464ebd0391533d7', {
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('my_event', function(data) {
+      alert(data.message);
+    });
+  </script>
+  
   <title>The Rooks</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
