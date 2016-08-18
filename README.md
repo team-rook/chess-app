@@ -11,4 +11,4 @@ Team Rooks is composed of the following members:
 
 Team Rooks is led by the great [Jacob Gillespie](https://github.com/jacobwgillespie).
 
-Visit SPRKY Chess live at [https://team-rook.herokuapp.com/](https://team-rook.herokuapp.com/)
+Play it for yourself at [https://team-rook.herokuapp.com/](https://team-rook.herokuapp.com/)!
