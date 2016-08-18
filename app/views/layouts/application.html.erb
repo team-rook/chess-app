@@ -13,8 +13,11 @@
     });
 
     var channel = pusher.subscribe('test_channel');
-    channel.bind('my_event', function(data) {
+    channel.bind('my_event', function(data) {$( ".piece" ).on( "dragstop", function( event, ui ) {
+    channel.trigger(‘piece-moved’, function(data) {
+     
       alert(data.message);
+
     });
   </script>
   
