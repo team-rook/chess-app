@@ -133,7 +133,7 @@ class Piece < ActiveRecord::Base
 
   def capture_piece_at(x,y)
     return false unless game.square_occupied?(x,y)
-    game.find_piece(x,y).captured!
-    true
+    self.game.find_piece(x,y).captured!
+    return true
   end
 end
