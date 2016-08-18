@@ -127,6 +127,7 @@ class Piece < ActiveRecord::Base
   def move_to!(x,y)
     return false unless valid_move?(x,y)
     capture_piece_at(x,y)
+    puts stuff = update_attributes(move_number: move_number + 1)
     update_attributes(x_position: x, y_position: y, move_number: move_number + 1)
     game.update_attributes(move_counter: game.move_counter + 1)
   end
