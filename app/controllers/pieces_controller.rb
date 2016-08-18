@@ -16,8 +16,11 @@ class PiecesController < ApplicationController
 			if @piece.move_to!(x,y)
 				respond_to do |format|
 					format.html { render :show }
-					format.json { render json: { success: true, current_player: @piece.game.current_player == @piece.game.black_player ? 'black' : 'white' } @piece, status: :ok }
-				end
+  			              format.json { render json: { 
+					success: true,  piece: @piece, current_player: @piece.game.currently_black_turn? ? 'black' : 'white'
+ 					   }, status: :ok 
+ 					   }
+ 				end
 			else
 				render json: {success: false }
 			end

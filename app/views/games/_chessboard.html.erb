@@ -36,17 +36,18 @@ $(function() {
         success: function(data) {
           destination_square.empty();
           $(location).attr('href', data.update_url);
+          if (data.success) {
+            if (data.current_player === 'black') {
+              var h3Element = $('h3');
+              h3Element.html('Black Player Turn');
+            } else {
+            h3Element.html('White Player Turn');
+          }
+        }
         },
         error: function(data) {
           $(piece).css({'left': 0, 'top': 0});
           alert("Invalid Move");
-        }
-        if (data.success) {
-          if (data.current_player === 'black') {
-            h3Element.html('Black Player Turn');
-          } else {
-            h3Element.html('White Player Turn');
-          }
         }
       });
     }
