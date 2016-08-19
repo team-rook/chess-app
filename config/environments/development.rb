@@ -1,7 +1,13 @@
 Chessapp::Application.configure do
+  require 'pusher'
+
+  Pusher.app_id = '239074'
+  Pusher.key = 'cb977b7b2193b12e83c8'
+  Pusher.secret = '35ade3140bf3437629ee'
+
   config.action_mailer.default_url_options = { host:
   'localhost:3030' }
-  
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
