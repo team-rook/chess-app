@@ -1,6 +1,6 @@
 ##Team Rooks Chess Application
 
-This is Ruby on Rails chess application built as [The Firehose Project](http://thefirehoseproject.com) capstone project.
+This is a Ruby on Rails chess application built as [The Firehose Project](http://thefirehoseproject.com) capstone project.
 
 Team Rooks is composed of the following members:
 
